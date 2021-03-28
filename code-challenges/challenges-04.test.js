@@ -65,17 +65,9 @@ Return an array containing all the matches.
 ------------------------------------------------------------------------------------------------ */
 
 const isCapitalized = (str) => {
-  // let exp = new RegExp(/([A-Z])\w+/g);
-  // let res = exp.exec(str);
-  // let res = str.match(/([A-Z])\w+/g);
-  // if (res !== null){return res;}/* else {return [];}*/
-
   let wrdsArr =[];
   let res =/\b[A-Z]\w*\b/g;
-  if (str.match(res) === null){
-    return wrdsArr;
-  }else{
-    return str.match(res);
+  (str.match(res) === null) ? wrdsArr : str.match(res);
   }
 };
 
