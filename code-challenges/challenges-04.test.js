@@ -3,7 +3,7 @@
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 1 - Review
 
-Write a function called addTwo that takes in an array and adds two to every value using a for loop. Place the new value in a new array. Return the new array. 
+Write a function called addTwo that takes in an array and adds two to every value using a for loop. Place the new value in a new array. Return the new array.
 ------------------------------------------------------------------------------------------------ */
 
 const addTwo = (arr) => {
@@ -19,7 +19,7 @@ const addTwo = (arr) => {
 CHALLENGE 2
 
 Write a function named containsW that takes in a string.
-This function should use a regular expression pattern to return true if the string contains the letter 'w' in lower case or false if it does not. 
+This function should use a regular expression pattern to return true if the string contains the letter 'w' in lower case or false if it does not.
 
 ------------------------------------------------------------------------------------------------ */
 
@@ -66,8 +66,18 @@ Return an array containing all the matches.
 
 const isCapitalized = (str) => {
   let wrdsArr =[];
-  let res =/\b[A-Z]\w*\b/g;
-  (str.match(res) === null) ? wrdsArr : str.match(res);
+  let reg =/\b[A-Z]\w*\b/g;
+  if(str !== ''){
+    let res = str.match(reg);
+    if(res !==null){
+      return res;
+    }
+    else{
+      return wrdsArr;
+    }
+  }
+  else{
+    return wrdsArr;
   }
 };
 
@@ -162,7 +172,7 @@ Run your tests from the console: jest challenges-04.solution.test.js
 describe('Testing challenge 1', () => {
   test('It should add two to every value', () => {
     expect(addTwo([1, 2, 4])).toStrictEqual([3, 4, 6]);
-  })
+  });
 });
 
 describe('Testing challenge 2', () => {
@@ -174,8 +184,8 @@ describe('Testing challenge 2', () => {
   });
   test('It should return false if the input does not contain a w', () => {
     expect(containsW('hello everyone')).toBe(false);
-  })
-})
+  });
+});
 
 describe('Testing challenge 3', () => {
   test('It should return true if the input is a number', () => {
@@ -201,7 +211,7 @@ describe('Testing challenge 4', () => {
   test('It should return false if the input does not contain the word school', () => {
     expect(containsWorld('hello everyone')).toBe(false);
   });
-})
+});
 
 describe('Testing challenge 5', () => {
   test('It should only return words that begin with a capital letter', () => {
