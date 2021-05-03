@@ -12,3 +12,5 @@
 ## Solution
 <!-- Embedded whiteboard image -->
 
+- [Latest PR](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/pull/20) with a test code
+
