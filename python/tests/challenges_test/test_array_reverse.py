@@ -1,6 +1,4 @@
-from code_challenges.array_reverse.array_reverse import (
-    reverse_array,
-)
+from code_challenges.array_reverse.array_reverse import reverse_array
 
 def test_first():
     # arrange
