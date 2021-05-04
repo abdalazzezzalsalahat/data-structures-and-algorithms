@@ -2,6 +2,8 @@
 # You might not need the first because it's a bit advance
 # But I think the second would show that I understand how it works
 
+
+
 from bisect import bisect_left
 
 def BinarySearch_fromImport(arr, key):
