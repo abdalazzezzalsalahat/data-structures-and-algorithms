@@ -16,3 +16,5 @@
 9. *Worked perfictly.*
 
 ## API
+
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List.png)
