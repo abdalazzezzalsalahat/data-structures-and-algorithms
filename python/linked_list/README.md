@@ -56,4 +56,4 @@
 
 ## Whiteboard
 
-[click me]()
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List-BA.png)
