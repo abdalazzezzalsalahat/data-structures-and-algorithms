@@ -14,13 +14,8 @@ class LinkedList():
         input ==> value
         '''
         new_node = Node(value)
-        if not self.head:
-            self.head = new_node
-        else:
-            current = self.head
-            while current.next:
-                current = current.next
-            current.next = new_node
+        new_node.next = self.head
+        self.head = new_node
 
     def __str__(self):
         current = self.head
@@ -120,6 +115,33 @@ class LinkedList():
                 else:
                     current = current.next
             return
-                         
-                         
 
+
+        ###########################################################################
+
+    def kth_from_end(self, k):
+        """takes in a value(k) and returns the Node k places away from the tail"""
+        current = self.head
+        arr = []
+        if k < 0:
+            raise ValueError("value must be more than 0 ")
+        while current:
+            arr.append(current)
+            current = current.next
+        if len(arr) < k:
+            raise IndexError("Value extends length of List.")
+        arr.reverse()
+        if k == len(arr):
+            k = k -1
+        return arr[k].value
+        
+#################################################################
+
+    def kth_from_end_second(self, k):
+        current = self.head
+        count = 0
+        while (current):
+            if (count == k):
+                return current.value
+            count += 1
+            current = current.next
