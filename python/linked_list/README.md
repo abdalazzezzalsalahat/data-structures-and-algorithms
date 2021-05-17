@@ -1,8 +1,13 @@
-# Linked List
-*It was a good one*
+# Singly Linked List Insertions
+
+> The linked list is alternative to an array-based structure. A linked list is collection of nodes that collectively form linear sequence. In a singly linked list, each node stores a reference to an object that is an element of the sequence, as well as a reference to the next node of the list. It does not store any pointer or reference to the previous node. To store a single linked list, only the reference or pointer to the first node in that list must be stored. The last node in a single linked list points to nothing.
 
 ## Challenge Description
-*write a node class to create a node for singly linked list with pointer to the next node, and another class called linked_list that have functions to initialize a node, append nodes, insert a new node, search nodes.*
+
+1. Create a Node class that has properties for the value stored in the Node, and a pointer to the next Node. Within your LinkedList class, include a head property. Upon instantiation, an empty Linked List should be created. 
+
+2. Create methods in the LinkedList class : 
+
 
 ## Approach & Efficiency
 1. *Create a class that creats a node with a next pointer property.*
@@ -20,26 +25,14 @@
 ![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List.png)
 
 
-
-
-
-
-
-# Singly Linked List Insertions
-
-> The linked list is alternative to an array-based structure. A linked list is collection of nodes that collectively form linear sequence. In a singly linked list, each node stores a reference to an object that is an element of the sequence, as well as a reference to the next node of the list. It does not store any pointer or reference to the previous node. To store a single linked list, only the reference or pointer to the first node in that list must be stored. The last node in a single linked list points to nothing.
-
 ## Challenge
 
-1. Create a Node class that has properties for the value stored in the Node, and a pointer to the next Node. Within your LinkedList class, include a head property. Upon instantiation, an empty Linked List should be created. 
 
-2. Create methods in the LinkedList class : 
+1. append(value) which adds a new node with the given value to the end of the list
 
-3. append(value) which adds a new node with the given value to the end of the list
+2. insertBefore(value, newVal) which add a new node with the given newValue immediately before the first value 
 
-4. insertBefore(value, newVal) which add a new node with the given newValue immediately before the first value 
-
-5. insertAfter(value, newVal) which add a new node with the given newValue immediately after the first value node
+3. insertAfter(value, newVal) which add a new node with the given newValue immediately after the first value node
 
 ## Approach & Efficiency
 
@@ -57,3 +50,24 @@
 ## Whiteboard
 
 ![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List-BA.png)
+
+
+
+
+## Challenge
+
+1. kth_from_end(self, k) which takes in a value(k) and returns the Node k places away from the tail
+
+
+## Approach & Efficiency
+
+* `space <- O(1)`
+* `time  <- O(n)`
+
+## API
+
+> `kth_from_end(self, k)` function  : which takes in a value(k) and returns the Node k places away from the tail
+
+## Whiteboard
+
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List-kth.png)
