@@ -124,12 +124,12 @@ class LinkedList():
         current = self.head
         arr = []
         if k < 0:
-            raise ValueError("value must be more than 0 ")
+            return 'index can\'t be less the zero'
         while current:
             arr.append(current)
             current = current.next
         if len(arr) < k:
-            raise IndexError("Value extends length of List.")
+            return 'index not found'
         arr.reverse()
         if k == len(arr):
             k = k -1
