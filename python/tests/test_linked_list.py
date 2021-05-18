@@ -136,6 +136,26 @@ def test_value_in_the_middle():
     expected = 3
     assert actual == expected 
 
+def test_value_zero():
+    li = LinkedList()
+    li.append(1)
+    li.append(2)
+    li.append(3)
+    actual = li.kth_from_end(-1)
+    expected = 'index can\'t be less the zero'
+    assert actual == expected 
+
+
+def test_value_not_exist():
+    li = LinkedList()
+    li.append(1)
+    li.append(2)
+    li.append(3)
+    actual = li.kth_from_end(5)
+    expected = 'index not found'
+    assert actual == expected 
+
+
 
 #####################################################################
 
