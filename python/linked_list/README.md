@@ -71,3 +71,29 @@
 ## Whiteboard
 
 ![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List-kth.png)
+
+
+
+
+
+
+
+
+## Challenge
+
+1. Write function (zipLists) that takes two linked lists as arguments (list1,list2). Zip the two linked lists together into one so that the nodes alternate between the two lists and return a reference to the head of the zipped list.
+
+
+## Approach & Efficiency
+
+* `space <- O(1)`
+* `time  <- O(n)`
+
+## API
+
+> `zipLists (list1,list2)` function : takes two linked lists as arguments. Zip the two linked lists together into one so that the nodes alternate between the two lists and return a reference to the head of the zipped list.
+
+## Whiteboard
+
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Linked-List-ZIP.png)
+
