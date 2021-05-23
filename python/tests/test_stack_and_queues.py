@@ -2,18 +2,7 @@ from stacks_and_queues.stacks_and_queues import Node, Stack, Queue
 
 '''required tests '''
 
-# 3- Can successfully pop off the stack
-# 4- Can successfully empty a stack after multiple pops
-# 5-  
-# 6- Can successfully instantiate an empty stack
-# 7- 
-# 8- Can successfully enqueue into a queue
-# 9- Can successfully enqueue multiple values into a queue
-# 10- Can successfully dequeue out of a queue the expected value
-# 11- Can successfully peek into a queue, seeing the expected value
-# 12- Can successfully empty a queue after multiple dequeues
-# 13- Can successfully instantiate an empty queue
-# 14- 
+
 def create_stack(nodes):
     '''Helper function to create a stack'''
 
@@ -25,8 +14,8 @@ def create_stack(nodes):
 def test_create_node():
     '''Can successfully create node'''
 
-    node = Node('osama')
-    assert node.data == 'osama'
+    node = Node('dario')
+    assert node.data == 'dario'
 
 ###################################################################################
 

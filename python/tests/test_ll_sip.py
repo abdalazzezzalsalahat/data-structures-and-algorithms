@@ -1,4 +1,4 @@
-from linked_list.ll_zip import LinkedList
+from python.linked_list.ll_zip import LinkedList
 import pytest
 
 
@@ -16,13 +16,12 @@ def test_zipLists():
 
 def test_zipLists2():
     llist1 = LinkedList() 
-    llist2 = LinkedList() 
     llist1.append(3) 
     llist1.append(2) 
     llist1.append(1) 
     llist1.append(0) 
     llist1.append(0) 
-  
+    llist2 = LinkedList() 
     llist2.append(8) 
     llist2.append(7) 
     llist2.append(6)
@@ -30,11 +29,10 @@ def test_zipLists2():
 
 def test_zipLists3(): 
     llist1 = LinkedList() 
-    llist2 = LinkedList() 
     llist1.append(3) 
     llist1.append(2) 
     llist1.append(1) 
-
+    llist2 = LinkedList() 
     llist2.append(8) 
     llist2.append(7) 
     llist2.append(6)

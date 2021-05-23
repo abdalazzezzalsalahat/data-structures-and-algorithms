@@ -5,7 +5,7 @@ class Node:
         self.next = None
 
 class Stack:
-    '''this STack is implementing the (Stack data structure ) with common methods used with it'''
+    '''This stack is implementing the (Stack data structure ) with common methods used with it'''
     top = None
 
     def __init__(self, top=None):
@@ -16,7 +16,7 @@ class Stack:
         current = self.top
         items = []
         while current:
-            items.append(str(current.value))
+            items.append(str(current.data))
             current = current.next
         return "\n".join(items)
 
@@ -46,9 +46,9 @@ class Stack:
     def is_empty(self):
         '''Method, takes no argument, and returns a boolean when it checks whether Stack is empty or not'''
 
-        if self.top == None:
-            return True
-        return False
+        if self.top:
+            return False
+        return True
 
 class Queue:
     '''this class implementing (Queue data structure ) with common methods used with it'''
@@ -62,7 +62,7 @@ class Queue:
         current = self.front
         items = []
         while current:
-            items.append(str(current.value))
+            items.append(str(current.data))
             current = current.next
         return "\n".join(items)
 
@@ -101,3 +101,19 @@ class Queue:
         if not self.is_empty():
             return self.front.data
         return 'Queue is empty'
+
+if __name__ == "__main__":
+
+  que = Queue()
+  que.enqueue(50)
+  que.enqueue(220)
+  que.enqueue(98)
+
+  print (que.__str__())
+  print('\n\n\n\n\n\n')
+  print(que.dequeue())
+  print('\n\n\n\n\n\n')
+  print (que.__str__())
+  print('\n\n\n\n\n\n')
+  print(que.peek())
+
