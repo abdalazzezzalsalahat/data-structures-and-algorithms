@@ -2,18 +2,7 @@ from stacks_and_queues.stacks_and_queues import Node, Stack, Queue
 
 '''required tests '''
 
-# 3- Can successfully pop off the stack
-# 4- Can successfully empty a stack after multiple pops
-# 5-  
-# 6- Can successfully instantiate an empty stack
-# 7- 
-# 8- Can successfully enqueue into a queue
-# 9- Can successfully enqueue multiple values into a queue
-# 10- Can successfully dequeue out of a queue the expected value
-# 11- Can successfully peek into a queue, seeing the expected value
-# 12- Can successfully empty a queue after multiple dequeues
-# 13- Can successfully instantiate an empty queue
-# 14- 
+
 def create_stack(nodes):
     '''Helper function to create a stack'''
 
@@ -25,8 +14,8 @@ def create_stack(nodes):
 def test_create_node():
     '''Can successfully create node'''
 
-    node = Node('osama')
-    assert node.data == 'osama'
+    node = Node('dario')
+    assert node.value == 'dario'
 
 ###################################################################################
 
@@ -35,7 +24,7 @@ def test_stack_push(): ## 1
 
     stack = Stack()
     stack.push('dario')
-    assert stack.top.data == 'dario'
+    assert stack.top.value == 'dario'
 
 def test_stack_push_multiple(): ## 2
     '''Can successfully push multiple values onto a stack'''
@@ -43,20 +32,20 @@ def test_stack_push_multiple(): ## 2
     stack = Stack()
     assert stack.top == None
     stack.push(5)
-    assert stack.top.data == 5
+    assert stack.top.value == 5
     stack.push(1)
-    assert stack.top.data == 1
+    assert stack.top.value == 1
     stack.push(2)
-    assert stack.top.data == 2
+    assert stack.top.value == 2
 
 def test_stack_pop_multiple(): ## 3
     '''Can successfully pop off the stack'''
 
     stack = create_stack([1,2,3,4,5])
+    assert stack.pop() == 5
     assert stack.pop() == 4
     assert stack.pop() == 3
     assert stack.pop() == 2
-    assert stack.pop() == 1
     assert stack.top.next == None
 
 def test_peek(): ## 5
@@ -87,7 +76,7 @@ def test_enqueue_to_queue(): ## 8
 
     queue = Queue()
     queue.enqueue(1)
-    actual = queue.front.data
+    actual = queue.front.value
     expected = 1
     assert actual == expected
 
@@ -98,9 +87,9 @@ def test_queue_enqueue_while_two_node(): ## 9
     queue.enqueue(1)
     queue.enqueue(2)
     queue.enqueue(3)
-    assert queue.front.data == 1
+    assert queue.front.value == 1
     assert isinstance(queue.front.next, Node)
-    assert queue.rear.data == 3
+    assert queue.rear.value == 3
     assert queue.rear.next == None
 
 def test_queue_dequeue(): ## 10
