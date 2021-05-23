@@ -15,7 +15,7 @@ def test_create_node():
     '''Can successfully create node'''
 
     node = Node('dario')
-    assert node.data == 'dario'
+    assert node.value == 'dario'
 
 ###################################################################################
 
@@ -24,7 +24,7 @@ def test_stack_push(): ## 1
 
     stack = Stack()
     stack.push('dario')
-    assert stack.top.data == 'dario'
+    assert stack.top.value == 'dario'
 
 def test_stack_push_multiple(): ## 2
     '''Can successfully push multiple values onto a stack'''
@@ -32,20 +32,20 @@ def test_stack_push_multiple(): ## 2
     stack = Stack()
     assert stack.top == None
     stack.push(5)
-    assert stack.top.data == 5
+    assert stack.top.value == 5
     stack.push(1)
-    assert stack.top.data == 1
+    assert stack.top.value == 1
     stack.push(2)
-    assert stack.top.data == 2
+    assert stack.top.value == 2
 
 def test_stack_pop_multiple(): ## 3
     '''Can successfully pop off the stack'''
 
     stack = create_stack([1,2,3,4,5])
+    assert stack.pop() == 5
     assert stack.pop() == 4
     assert stack.pop() == 3
     assert stack.pop() == 2
-    assert stack.pop() == 1
     assert stack.top.next == None
 
 def test_peek(): ## 5
@@ -76,7 +76,7 @@ def test_enqueue_to_queue(): ## 8
 
     queue = Queue()
     queue.enqueue(1)
-    actual = queue.front.data
+    actual = queue.front.value
     expected = 1
     assert actual == expected
 
@@ -87,9 +87,9 @@ def test_queue_enqueue_while_two_node(): ## 9
     queue.enqueue(1)
     queue.enqueue(2)
     queue.enqueue(3)
-    assert queue.front.data == 1
+    assert queue.front.value == 1
     assert isinstance(queue.front.next, Node)
-    assert queue.rear.data == 3
+    assert queue.rear.value == 3
     assert queue.rear.next == None
 
 def test_queue_dequeue(): ## 10

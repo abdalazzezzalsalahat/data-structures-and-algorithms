@@ -13,9 +13,19 @@ class LinkedList():
         this method to append value in the last node 
         input ==> value
         '''
-        new_node = Node(value)
-        new_node.next = self.head
-        self.head = new_node
+        if value is None:
+            raise  TypeError("insert() missing 1 required positional argument: 'value' ") 
+        else:
+            new_node = Node(value)
+            if not self.head:
+                self.head = new_node
+            else:
+                new_node = Node(value)
+                current = self.head
+                while current.next:
+                    current = current.next
+                current.next = new_node
+
 
     def __str__(self):
         current = self.head
@@ -30,18 +40,10 @@ class LinkedList():
         this method to adds an element to the list 
         input ==> element
         '''
-        if value is None:
-            raise  TypeError("insert() missing 1 required positional argument: 'value' ") 
-        else:
-            new_node = Node(value)
-            if not self.head:
-                self.head = new_node
-            else:
-                new_node = Node(value)
-                current = self.head
-                while current.next:
-                    current = current.next
-                current.next = new_node
+        node = Node(value)
+        node.next = self.head
+        self.head = node
+
 
     def includes(self, values):
           '''
@@ -75,22 +77,22 @@ class LinkedList():
         if not self.head:
             self.head = new_node
         else:
-                if current.value == value:
-                    th_node = self.head
-                    self.head = new_node
+            if current.value == value:
+                th_node = self.head
+                self.head = new_node
+                new_node.next = th_node
+                return 
+            else:
+                    current = self.head
+            while current.next :
+                if current.next.value == value:
+                    th_node = current.next
+                    current.next = new_node
                     new_node.next = th_node
                     return 
                 else:
-                     current = self.head
-                while current.next :
-                    if current.next.value == value:
-                        th_node = current.next
-                        current.next = new_node
-                        new_node.next = th_node
-                        return 
-                    else:
-                        current = current.next
-                return 
+                    current = current.next
+            return 
 
     def insert_after(self, value, new_value):
         '''

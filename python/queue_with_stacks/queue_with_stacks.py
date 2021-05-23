@@ -1,35 +1,31 @@
-from python.stacks_and_queues.stacks_and_queues import Stack
+from stacks_and_queues.stacks_and_queues import Stack
 
 class Psuedo_Queue:
 
     def __init__(self): 
-        self.stack = Stack()
+        self.stack_one = Stack()
+        self.stack_two = Stack()
 
 
     def __str__(self):
         current = self.front
         items = []
         while current:
-            items.append(str(current.data))
+            items.append(str(current.value))
             current = current.next
         return "\n".join(items)
 
 
-    def enqueue(self, data):
-        self.stack.push(data)
+    def enqueue(self, value):
+        self.stack_one.push(value)
 
 
     def dequeue(self):
-        reverse_stack = Stack()
-
-        while self.stack.top:
-            reverse_stack.push(self.stack.pop())
-        removed = reverse_stack.pop()
-
-        while reverse_stack.top:
-            self.enqueue(reverse_stack.pop())
-
-        return removed
+        while not self.stack_one.is_empty() : 
+            self.stack_two.push(self.stack_one.pop())
+        if self.stack_two.is_empty ( ) :
+            raise RuntimeError('cannot dequeue  from empty stack!!') 
+        return self.stack_two.pop()
 
 
 if __name__ == "__main__":
@@ -40,9 +36,7 @@ if __name__ == "__main__":
     q_s.enqueue(555)
     q_s.enqueue(5555)
 
-    
-
     q_s.dequeue()
-
+    
     print(q_s.__str__())
 
