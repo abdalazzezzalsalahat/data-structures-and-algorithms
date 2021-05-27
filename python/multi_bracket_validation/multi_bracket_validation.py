@@ -1,14 +1,20 @@
 from queue import LifoQueue
 
 
-def multi_bracket_validation(value: str) -> bool:
+def multi_bracket_validation(value: str):
+    """
+    Function to check on brackets types and closings, takes a string
+    -> {we are here}
+    -> ()
+    ==> {}
+    -> []
+    """
+
     if len(value) % 2 != 0:
         return False
-
     closing_values = {'(': ')', '{': '}', '[': ']'}
     open_chars = closing_values.keys()
     stack = LifoQueue(len(value))
-
     for char in value:
         if char in open_chars:
             stack.put(char)
