@@ -10,4 +10,4 @@
 
 ## White Board 
 
-![img]()
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/linked_list/assets/Multi%20Brackets.png)
