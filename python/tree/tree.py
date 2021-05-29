@@ -1,4 +1,5 @@
-from stacks_and_queues.stacks_and_queues import Stack, Queue
+class Exceptions():
+    pass
 
 
 class TNode:
@@ -10,29 +11,25 @@ class TNode:
 
 class BinaryTree:
     """
-    Binary Search Tree to sort values as a tree,
+    Binary Tree to sort values as a tree,
     deviding values to less than on the left and greater than to the right
     containing methods like: 
-    __int__(),
-    __str__(),
-    add(value),
-    pre_order(),
-    in_order(),
-    post_order(),
-    contains(value)
+        __int__(),
+        __str__(),
+        pre_order(),
+        in_order(),
+        post_order(),
     """
 
     def __init__(self, root = None):
         self.root = root
 
-    def __str__(self):
-        pass
-
     def pre_order(self):
-        """ Pre-order traversal of our tree """
+        """ Pre-order traversal of our tree root -> left -> right"""
+        pre_out = []
         def pre(root):
-            print(root.value)
-
+            pre_out.append(root.value)
+            
             if root.left:
                 pre(root.left)
             
@@ -41,102 +38,63 @@ class BinaryTree:
                 
         pre(self.root)
 
+        return pre_out
+
     def in_order(self):
-        """ In-order traversal of our tree """
-        def inorder(root):
-            # print(root.value)
+        """ In-order traversal of our tree left -> root -> right"""
 
-            if root:
-                inorder(root.left)
+        in_out = []
+        def walk(root):
 
-                print(root.value)
+            if root.left:
+                walk(root.left)
+            in_out.append(root.value)
 
-                inorder(root.right)
-  
-        inorder(self.root)
+            if root.right:
+                walk(root.right)
+
+        walk(self.root)
+        return in_out
 
     def post_order(self):
-        """ Pre-order traversal of our tree """
+        """ Post-order traversal of our tree left -> right -> root """
+        
+        post_out = []
         def post(root):
-            if root:
+
+            if root.left:
                 post(root.left)
-        
+
+            if root.right:
                 post(root.right)
-        
-                print(root.value),
+
+            post_out.append(root.value)
 
         post(self.root)
-
-
-class Binary_Search_Tree(BinaryTree):
-
-    def add(self, root, value):
-        if root is None:
-            return TNode(value)
-        else:
-            if root.value == root:
-                return root
-            elif root.value < value:
-                root.right = self.add(root.right, value)
-            else:
-                root.left = self.add(root.left, value)
-        return root
-
-    def contains(self, value): ## returns a boolean indicating whether or not the value is in the tree at least once 
-        ''' Return Boolean indicating existence (but not location) of value on tree '''
-        if not self.root:
-            return False
-        current = self.root
-        while True:
-            if value == current.value:
-                return True
-            if value < current.value:
-                if current.left:
-                    current = current.left
-                else:
-                    return False
-            else:
-                if current.right:
-                    current = current.right
-                else:
-                    return False
+        return post_out
 
 
 
 if __name__ == "__main__":
-    node1 = TNode(1)
-    node1.left = TNode(2)
-    node1.right = TNode(3)
-    node1.right.left = TNode(4)
-    node1.right.right = TNode(5)
-    binary_tree = BinaryTree(node1)
-    print ("\n\n\n\n\nPre-order traversal of binary tree is")
-    binary_tree.pre_order()
-    print ("\n\n\n\nInorder traversal of binary tree is")
-    binary_tree.in_order()
-    print ("\n\n\n\n\nPostorder traversal of binary tree is")
-    binary_tree.post_order()
-    
-    # print ("\n\n\n\n\nPre-order traversal of binary tree is")
-    print('\n\n\n\n\n\n')
 
-    bst = Binary_Search_Tree(node1)
-    bst.add(node1,1000)
-    bst.add(node1,10000)
-    bst.add(node1,-1)
-    bst.add(node1, 56)
-    bst.add(node1, 45)
-    bst.add(node1, 6)
-    bst.add(node1, 455)
-    bst.add(node1, 78)
-    bst.add(node1, 99)
-    bst.add(node1, 21)
-    bst.add(node1, 654)
-    print(bst.contains(1000))
-    print(bst.contains(-5))
+    bt = BinaryTree(1)
+    bt.root = TNode(5)
+    bt.root.left = TNode(-4)
+    bt.root.right = TNode(42)
+    bt.root.left = TNode(4)
+    bt.root.left.left = TNode(2)
+    bt.root.left.right = TNode(-1)
+    bt.root.right = TNode(14)
+    bt.root.right.left = TNode(16)
+    bt.root.right.right = TNode(20)
+    print(bt.pre_order())
+    print('\n\n************')
+    print(bt.in_order())
+    print('\n\n************')
+    print(bt.post_order())
 
-    binary_tree.pre_order()
 
+#################################################### K_ary treee node class...#######################################################
     
 # # Think about
 # class KNode:
