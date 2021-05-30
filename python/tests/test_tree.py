@@ -1,4 +1,4 @@
-from tree.tree import BinaryTree, TNode
+from tree.tree import Binary_Tree, TNode
 from tree.binary_search_tree import Binary_Search_Tree
 import pytest
 
@@ -9,7 +9,7 @@ def fixture_tree():
     tree.right = TNode(101)
     tree.left.left = TNode(41)
     tree.right.left = TNode(999)
-    b_tree = BinaryTree(tree)
+    b_tree = Binary_Tree(tree)
     return b_tree
 
 @pytest.fixture
@@ -37,13 +37,13 @@ def bst():
 def test_success_instantiate_an_empty_tree():  ## 1
     ''' Can successfully instantiate an empty tree '''
 
-    tree = BinaryTree()
+    tree = Binary_Tree()
     assert tree.root == None
 
 def test_success_instantiate_tree_with_root_node(): ## 2
     ''' Can successfully instantiate a tree with a single root node '''
 
-    tree = BinaryTree(88)
+    tree = Binary_Tree(88)
     assert tree.root == 88
 
 def test_success_left_right_child(): ## 3
@@ -56,29 +56,24 @@ def test_success_left_right_child(): ## 3
     assert tree.left.value == 42
     assert tree.right.value == 22
 
-# @pytest.mark.skip
 def test_success_return_collection_pre_order(fixture_tree): ## 4
     ''' Can successfully return a collection from a pre_order traversal '''
     
     result = fixture_tree.pre_order()
     assert result == [1, 42, 41, 101, 999] 
 
-# @pytest.mark.skip
 def test_success_return_collection_post_order(fixture_tree): ## 5
     ''' Can successfully return a collection from an post_order traversal '''
 
     result = fixture_tree.post_order()
     assert result == [41, 42, 999, 101, 1]
 
-# @pytest.mark.skip
 def test_success_return_collection_in_order(fixture_tree): ## 6
     ''' Can successfully return a collection from an inorder traversal '''
 
-    # binary_tree = BinaryTree(fixture_tree)
     result = fixture_tree.in_order()
     assert result == [41, 42, 1, 999, 101]
 
-# @pytest.mark.skip
 def test_success_add_node_to_bst(bst): ## 7
     ''' Test for successful addition of node to Binary Search Tree '''
 
@@ -92,7 +87,6 @@ def test_success_add_node_to_bst(bst): ## 7
     assert bst.root.right.right.value == 1000
     assert bst.root.right.right.right.value == 10000
 
-# @pytest.mark.skip
 def test_success_bst_contains_value(bst): ## 8
     ''' Test for successful traversal of Binary Search Tree to find existance of value '''
     bst.add(1000)
@@ -104,4 +98,40 @@ def test_success_bst_contains_value(bst): ## 8
     assert bst.contains(-1) == True
     assert bst.contains(99) == False 
 
+############################################# Sunday Max Binary Tree Value ###################################
+
+@pytest.mark.skip
+def test_max_value():
+    tree = TNode(1)
+    tree.left = TNode(42)
+    tree.right = TNode(101)
+    tree.left.left = TNode(41)
+    tree.right.left = TNode(999)
+    result = Binary_Tree.find_maximum_value(tree)
+    assert result == 999
+
+
+@pytest.mark.skip
+def test_return_max_single_node():
+
+    tree = Binary_Tree(15)
+    actual = tree.find_maximum_value_iterative()
+    expected = 15
+    assert actual == expected
+    
+@pytest.mark.skip
+def test_return_maxVal_of_all(fixture_tree):
+    
+    actual = tree.find_maximum_value_iterative()
+    expected = 999
+    assert actual == expected
+
+@pytest.mark.skip
+def test_max_of_none():
+    '''this test if the binary tree is empty , so the maximum value will be 0 or none'''
+    tree = Binary_Tree()
+    actual = tree.find_maximum_value_iterative()
+    expected = 0
+
+    assert actual == expected
 
