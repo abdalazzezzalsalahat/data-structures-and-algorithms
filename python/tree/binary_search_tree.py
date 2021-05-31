@@ -1,7 +1,7 @@
 from tree.tree import *
 
 
-class Binary_Search_Tree(BinaryTree):
+class Binary_Search_Tree(Binary_Tree):
     """
     Binary Search Tree class to add new element to a binary tree, 
     and search for a spisific element in a binary tree.

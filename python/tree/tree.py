@@ -9,7 +9,7 @@ class TNode:
         self.right = None
 
 
-class BinaryTree:
+class Binary_Tree:
     """
     Binary Tree to sort values as a tree,
     deviding values to less than on the left and greater than to the right
@@ -25,7 +25,7 @@ class BinaryTree:
         self.root = root
 
     def pre_order(self):
-        """ Pre-order traversal of our tree root -> left -> right"""
+        """ Pre-order traversal of our tree (root -> left -> right) """
         pre_out = []
         def pre(root):
             pre_out.append(root.value)
@@ -41,7 +41,7 @@ class BinaryTree:
         return pre_out
 
     def in_order(self):
-        """ In-order traversal of our tree left -> root -> right"""
+        """ In-order traversal of our tree (left -> root -> right) """
 
         in_out = []
         def walk(root):
@@ -57,7 +57,7 @@ class BinaryTree:
         return in_out
 
     def post_order(self):
-        """ Post-order traversal of our tree left -> right -> root """
+        """ Post-order traversal of our tree (left -> right -> root) """
         
         post_out = []
         def post(root):
@@ -73,11 +73,29 @@ class BinaryTree:
         post(self.root)
         return post_out
 
+    def find_maximum_value(self, root):
+        if root == None:
+            return 'No max value was found.'
+
+        else:
+            max = root.value
+            # current = self.root
+            
+            if root.left.value > max:
+                max = self.find_maximum_value(root.left)
+
+            if root.right.value > max:
+                max = self.find_maximum_value(root.right)
+
+            return max
+
+
+
 
 
 if __name__ == "__main__":
 
-    bt = BinaryTree(1)
+    bt = Binary_Tree(1)
     bt.root = TNode(5)
     bt.root.left = TNode(-4)
     bt.root.right = TNode(42)
@@ -92,6 +110,8 @@ if __name__ == "__main__":
     print(bt.in_order())
     print('\n\n************')
     print(bt.post_order())
+    print('\n\n************')
+    print(bt.find_maximum_value())
 
 
 #################################################### K_ary treee node class...#######################################################
