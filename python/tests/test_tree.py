@@ -4,13 +4,15 @@ import pytest
 
 @pytest.fixture
 def fixture_tree():
-    tree = TNode(1)
-    tree.left = TNode(42)
-    tree.right = TNode(101)
-    tree.left.left = TNode(41)
-    tree.right.left = TNode(999)
-    b_tree = Binary_Tree(tree)
-    return b_tree
+    bt = Binary_Tree(1)
+    bt.root = TNode(5)
+    bt.root.left = TNode(4)
+    bt.root.right = TNode(14)
+    bt.root.left.left = TNode(2)
+    bt.root.left.right = TNode(-1)
+    bt.root.right.left = TNode(16)
+    bt.root.right.right = TNode(20)
+    return bt
 
 @pytest.fixture
 def bst():
@@ -34,19 +36,19 @@ def bst():
 
 # # # # # 6) Can successfully return a collection from a postorder traversal
 
-def test_success_instantiate_an_empty_tree():  ## 1
+def test_success_instantiate_an_empty_tree(): ## 1  ## 1
     ''' Can successfully instantiate an empty tree '''
 
     tree = Binary_Tree()
     assert tree.root == None
 
-def test_success_instantiate_tree_with_root_node(): ## 2
+def test_success_instantiate_tree_with_root_node(): ## 1 ## 2
     ''' Can successfully instantiate a tree with a single root node '''
 
     tree = Binary_Tree(88)
     assert tree.root == 88
 
-def test_success_left_right_child(): ## 3
+def test_success_left_right_child(): ## 1 ## 3
     ''' Can successfully add a left child and right child to a single root node '''
 
     tree = TNode(88)
@@ -56,25 +58,25 @@ def test_success_left_right_child(): ## 3
     assert tree.left.value == 42
     assert tree.right.value == 22
 
-def test_success_return_collection_pre_order(fixture_tree): ## 4
+def test_success_return_collection_pre_order(fixture_tree): ## 1 ## 4
     ''' Can successfully return a collection from a pre_order traversal '''
     
     result = fixture_tree.pre_order()
-    assert result == [1, 42, 41, 101, 999] 
+    assert result == [5, 4, 2, -1, 14, 16, 20]
 
-def test_success_return_collection_post_order(fixture_tree): ## 5
+def test_success_return_collection_post_order(fixture_tree): ## 1 ## 5
     ''' Can successfully return a collection from an post_order traversal '''
 
     result = fixture_tree.post_order()
-    assert result == [41, 42, 999, 101, 1]
+    assert result == [2, -1, 4, 16, 20, 14, 5]
 
-def test_success_return_collection_in_order(fixture_tree): ## 6
+def test_success_return_collection_in_order(fixture_tree): ## 1 ## 6
     ''' Can successfully return a collection from an inorder traversal '''
 
     result = fixture_tree.in_order()
-    assert result == [41, 42, 1, 999, 101]
+    assert result == [2, 4, -1, 5, 16, 14, 20]
 
-def test_success_add_node_to_bst(bst): ## 7
+def test_success_add_node_to_bst(bst): ## 1 ## 7
     ''' Test for successful addition of node to Binary Search Tree '''
 
     node1 = TNode(1)
@@ -87,7 +89,7 @@ def test_success_add_node_to_bst(bst): ## 7
     assert bst.root.right.right.value == 1000
     assert bst.root.right.right.right.value == 10000
 
-def test_success_bst_contains_value(bst): ## 8
+def test_success_bst_contains_value(bst): ## 1 ## 8
     ''' Test for successful traversal of Binary Search Tree to find existance of value '''
     bst.add(1000)
     bst.add(10000)
@@ -98,40 +100,66 @@ def test_success_bst_contains_value(bst): ## 8
     assert bst.contains(-1) == True
     assert bst.contains(99) == False 
 
-############################################# Sunday Max Binary Tree Value ###################################
+############################################# Sunday CC 16 Max Binary Tree Value #############################################
 
-@pytest.mark.skip
-def test_max_value():
-    tree = TNode(1)
-    tree.left = TNode(42)
-    tree.right = TNode(101)
-    tree.left.left = TNode(41)
-    tree.right.left = TNode(999)
-    result = Binary_Tree.find_maximum_value(tree)
-    assert result == 999
+# @pytest.mark.skip
+def test_max_value(fixture_tree): ## 2 ## 1 
 
+    actual = fixture_tree.find_maximum_value(fixture_tree)
+    assert actual == 20
 
-@pytest.mark.skip
-def test_return_max_single_node():
-
-    tree = Binary_Tree(15)
-    actual = tree.find_maximum_value_iterative()
-    expected = 15
-    assert actual == expected
-    
-@pytest.mark.skip
-def test_return_maxVal_of_all(fixture_tree):
-    
-    actual = tree.find_maximum_value_iterative()
-    expected = 999
-    assert actual == expected
-
-@pytest.mark.skip
-def test_max_of_none():
-    '''this test if the binary tree is empty , so the maximum value will be 0 or none'''
+# @pytest.mark.skip
+def test_max_of_none(): ## 2 ## 4 
     tree = Binary_Tree()
-    actual = tree.find_maximum_value_iterative()
+    actual = tree.find_maximum_value()
     expected = 0
-
     assert actual == expected
+
+############################################# Monday CC 17 Breadth First Search #############################################
+
+def test_empty_tree(): ## 3 ## 1 
+    '''If tree is empty  return None.'''
+    tree = Binary_Tree()
+    actual = tree.breadth_first(tree.root)
+    expected = 'Tree is empty, nothing to look for...'
+    assert expected == actual
+
+def test_single_tree_node(): ## 3 ## 2
+    '''Test that binary tree with single item returns list with that single item.'''
+    tree = Binary_Tree()
+    tree.root = TNode(15)
+    actual = tree.breadth_first(tree.root)
+    expected = [15]
+    assert expected == actual
+
+def test_a_bunch_tree_nodes(): ## 3 ## 3 
+    '''Test that binary tree with four nodes returns list with those a bunch of items.'''
+
+    bt = Binary_Tree()
+    bt.root = TNode(2)
+    bt.root.left = TNode(7)
+    bt.root.right = TNode(5)
+    bt.root.left.left = TNode(2)
+    bt.root.left.right = TNode(6)
+
+    actual = bt.breadth_first(bt.root)
+    expected = [2,7,5,2,6]
+    assert expected == actual 
+
+def test_many_tree_nodes(): ## 3 ## 4 
+    '''Test that binary tree with 10 nodes returns list with those 10 items.'''
+    
+    bt = Binary_Tree()
+    bt.root = TNode(2)
+    bt.root.left = TNode(7)
+    bt.root.right = TNode(5)
+    bt.root.left.left = TNode(2)
+    bt.root.left.right = TNode(6)
+    bt.root.right.right = TNode(9)
+    bt.root.left.right.left = TNode(5)
+    bt.root.left.right.right = TNode(11)
+    bt.root.right.right.left = TNode(4)
+    actual = bt.breadth_first(bt.root)
+    expected = [2, 7, 5, 2, 6, 9, 5, 11, 4]
+    assert expected == actual   
 
