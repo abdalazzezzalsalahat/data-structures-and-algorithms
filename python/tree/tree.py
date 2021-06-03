@@ -75,7 +75,7 @@ class Binary_Tree:
         post(self.root)
         return post_out
 
-################## CC 16 Find Maximum Value ##################
+    ################## CC 16 Find Maximum Value ##################
     
     def find_maximum_value(self, node = None, result=[]):
         '''
@@ -104,7 +104,7 @@ class Binary_Tree:
         return max_val
 
 
-################## CC 17 Breadth First Search ##################
+    ################## CC 17 Breadth First Search ##################
 
     def breadth_first(self, root):
         '''
@@ -132,6 +132,7 @@ class Binary_Tree:
                 queue.append(node.right)
 
         return lst
+
 
 
 if __name__ == "__main__":
