@@ -39,7 +39,7 @@
 
 ## White Board
 
-![img]()
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/assets/BST_Max_val.png)
 
 
 
@@ -66,6 +66,6 @@
 
 ## White Board 
 
-![img]()
+![img](https://github.com/abdalazzezzalsalahat/data-structures-and-algorithms/blob/main/python/assets/BST%20Breadth%20First.png)
 
 
