@@ -23,4 +23,4 @@
 * space <- O(n)
 
 ## White Board 
-* see it on this link : https://drive.google.com/file/d/1RT1cYI6z6OylPoQzyoa1PZ5AAJ_efdSI/view?usp=sharing
+![img]()

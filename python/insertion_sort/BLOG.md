@@ -25,15 +25,15 @@ InsertionSort(int[] arr)
 
 ```
 def insertion_sort(array):
-    for index in range(len(array)):
-        position = index - 1
-        temp = array[index]
+    for i in range(len(array)):
+        index = i - 1
+        temp = array[i]
 
-        while position >= 0 and temp < array[position]:
-            array[position + 1] = array[position]
-            position -= 1
+        while index >= 0 and temp < array[index]:
+            array[index + 1] = array[index]
+            index -= 1
 
-        array[position + 1] = temp
+        array[index + 1] = temp
         print(array)
     return array
 ```
