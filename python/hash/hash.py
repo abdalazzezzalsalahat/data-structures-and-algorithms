@@ -97,6 +97,7 @@ class Hashtable:
         if bucket == None:
             return False
 
+        
         current = bucket.head
 
         while current:
@@ -104,7 +105,7 @@ class Hashtable:
             if current.value['key'] == key:
                 return True
 
-            # current = current.next
+            current = current.next
 
 
 
