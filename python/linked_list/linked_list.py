@@ -147,3 +147,7 @@ class LinkedList():
                 return current.value
             count += 1
             current = current.next
+
+
+
+            
