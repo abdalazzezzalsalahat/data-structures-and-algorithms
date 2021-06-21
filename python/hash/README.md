@@ -1,4 +1,4 @@
-# Code Challenge - Hash Tables
+# Hash Tables CC 30
 ## Overview 
 
 * Implement a hash table with the methods listed under Challenge.
