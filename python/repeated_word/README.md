@@ -6,7 +6,7 @@
 3. return the first word to occur more than once in that provided string.
 
 ## Approach 
-1. **Using `defaultdict`:** Returns a new dictionary-like object. defaultdict is a subclass of the built-in dict class. It overrides one method and adds one writable instance variable. The remaining functionality is the same as for the dict class.
+1. **Using `Hash Map`:** to add the words in lower case to as a key.
 
 2. **Returning:** the most repeated word in a sentance.
 
