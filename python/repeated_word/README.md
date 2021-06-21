@@ -17,4 +17,4 @@
 > Space: O(N)
 
 ## White-Board
-![img](../assets/BST.png)
+![img](../assets/Repeated_words.png)

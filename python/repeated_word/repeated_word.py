@@ -1,6 +1,8 @@
-
+import re 
 from collections import defaultdict
- 
+
+
+
 def first_repeating_word(sentence):
     """[summary]
     a funcction to calculate the most repeated words in a string
@@ -22,6 +24,32 @@ def first_repeating_word(sentence):
  
     return 'No word is being repeated'
  
+
+def repeated_word_STRETCH_GOAL(sentence):
+    """[summary]
+    function that returns a dictionary with the count for each word 
+    Args:
+        sentence ([string]): [paragraph or a text]
+
+    Returns:
+        [dictionary]: [words in the string with their count]
+    """
+
+    strr = re.sub(r'[^\w\s]', '', sentence)
+    words = {}
+    repeated_words = ''
+    
+    for word in sentence.split():
+        word = word.lower()
+        try:
+            words[word] += 1 
+            repeated_words = repeated_words or word
+        except:
+            words[word] = 1
+
+    if words:
+        return words
+    return "No Repeated words"
 
 
 
@@ -56,15 +84,5 @@ if __name__ == "__main__":
     print(first_repeating_word(last_str))
 
 
-
-
-
-
-
-
-### The word 'the' is repeated 14 times  
-### The word 'of' is repeated 12 times 
-### The word 'it' is repeated only 10 times 
-###### who is it possible that it should out but only 
 
 
