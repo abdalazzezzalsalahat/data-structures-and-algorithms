@@ -12,7 +12,7 @@
 - space <- O(1)
 
 ## White-Board
-![img]()
+![img](../assets/tree_intersection.png)
 
 
 

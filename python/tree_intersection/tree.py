@@ -22,6 +22,11 @@ class Binary_Tree:
         post_order(),
     '''
 
+    def is_empty(self, root):
+        if not root:
+            return False
+
+
     def __init__(self, root = None):
         self.root = root
 
