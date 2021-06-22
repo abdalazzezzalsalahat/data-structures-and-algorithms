@@ -9,7 +9,7 @@ class Hashtable:
         """
         self.buckets = [None] * size
 
-    def hash(self, key):
+    def _hash(self, key):
         """[summary]
         Takes in an arbitrary key and returns an index in the collection.
         Args:
@@ -33,7 +33,7 @@ class Hashtable:
             value ([int]): [description]
         """
 
-        index = self.hash(key)
+        index = self._hash(key)
 
         if self.buckets[index] == None:
             bucket = LinkedList()
@@ -64,7 +64,7 @@ class Hashtable:
         Returns:
             [string]: [returns the value of hashed key]
         """
-        idx = self.hash(key)
+        idx = self._hash(key)
         bucket = self.buckets[idx]
 
         if bucket == None:
@@ -91,7 +91,7 @@ class Hashtable:
             [bool]: [True if value exist, False if not]
         """
 
-        idx = self.hash(key)
+        idx = self._hash(key)
         bucket = self.buckets[idx]
 
         if bucket == None:
@@ -107,20 +107,14 @@ class Hashtable:
 
             current = current.next
 
-
-
 if __name__ == "__main__":
     
-    ht = Hashtable()
-    print(ht.hash('A'))
-    print(ht.hash('Ab'))
-    print(ht.add('A', "someone test"))
-    print(ht.add('Ab', "this my test"))
-    print(ht.add('A', "Rst"))
-    print(ht.add('A', "R U ready"))
-    print(ht.hash('911'))
-    print(ht.get('A'))
-    print(ht.get('Ab'))
-    print(ht.contains('C'))
+    ht_one = Hashtable()
+    print(ht_one._hash('A'))
+    ht_one.add('A', ["someone test", "Rst", "R U ready"])
+    print(ht_one._hash('911'))
+    print(ht_one.find('A'))
+    print(ht_one.contains('C'))
+    
 
 
