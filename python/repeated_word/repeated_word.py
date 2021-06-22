@@ -1,55 +1,21 @@
 import re 
 from collections import defaultdict
+from .hash import Hashtable
 
 
+def repeated_word_using_hashmap(sentance):
+    hash = Hashtable()
 
-def first_repeating_word(sentence):
-    """[summary]
-    a funcction to calculate the most repeated words in a string
-    Args:
-        sentence ([string]): [multi line string from a text file or a sentence ]
+    w_lst = re.findall(r'\w+', sentance)
 
-    Returns:
-        [string]: [the most repeated word in a sentence]
-    """
-    
-    word_count = defaultdict(lambda: 0)
- 
-    for i in sentence.split():
-        i = i.lower()
-        word_count[i] += 1
- 
-        if word_count[i] > 1:
-            return i
- 
-    return 'No word is being repeated'
- 
+    for word in w_lst:
+        lwr_word = word.lower()
+        if not hash.contains(lwr_word):
+            hash.add(lwr_word, 'word')
+        else:
+            return lwr_word
 
-def repeated_word_STRETCH_GOAL(sentence):
-    """[summary]
-    function that returns a dictionary with the count for each word 
-    Args:
-        sentence ([string]): [paragraph or a text]
 
-    Returns:
-        [dictionary]: [words in the string with their count]
-    """
-
-    strr = re.sub(r'[^\w\s]', '', sentence)
-    words = {}
-    repeated_words = ''
-    
-    for word in sentence.split():
-        word = word.lower()
-        try:
-            words[word] += 1 
-            repeated_words = repeated_words or word
-        except:
-            words[word] = 1
-
-    if words:
-        return words
-    return "No Repeated words"
 
 
 
@@ -77,12 +43,12 @@ if __name__ == "__main__":
     for good or for evil, 
     in the superlative degree of comparison only..."""
     last_str = "It was a queer, sultry summer, the summer they electrocuted the Rosenbergs, and I didn’t know what I was doing in New York..."
-    print(first_repeating_word(string))
-    print("\n\n\n")
-    print(first_repeating_word(mult_str))
-    print("\n\n\n")
-    print(first_repeating_word(last_str))
 
+    print(repeated_word_using_hashmap(string))
+    print("\n\n\n")
+    print(repeated_word_using_hashmap(mult_str))
+    print("\n\n\n")
+    print(repeated_word_using_hashmap(last_str))
 
 
 
