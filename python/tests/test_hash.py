@@ -9,7 +9,7 @@ def test_hash_add(): ## 1
     Test if adding a key/value to your hashtable results in the value being in the data structure
     """
     ht = Hashtable()
-    idx = ht.hash('Dario')
+    idx = ht._hash('Dario')
     ht.add('Dario','what ever you want')
     ll = ht.buckets[idx]
     key = ll.head.value.get('key')
@@ -53,9 +53,9 @@ def test_hash(): ## 6
     """
 
     ht = Hashtable()
-    hash_val = ht.hash('apple')
+    hash_val = ht._hash('apple')
     assert hash_val == 654
-    assert ht.hash('apple') == hash_val
+    assert ht._hash('apple') == hash_val
 
 ######################################### Test Integer values __Comming_soon__ #########################################
 

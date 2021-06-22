@@ -9,6 +9,21 @@ class Hashtable:
         """
         self.buckets = [None] * size
 
+    def __str__(self):
+        """
+        return the content of the table as string
+        """
+        output = []
+        for i in self.buckets:
+            if i:
+                current = i.head
+                while current:
+                    output.append(f"{current.value[0]}: {current.value[1]}")
+                    current = current.next
+        string_hashmap = '\n'.join(output)
+
+        return string_hashmap
+
     def _hash(self, key):
         """[summary]
         Takes in an arbitrary key and returns an index in the collection.
@@ -26,6 +41,27 @@ class Hashtable:
         return hashed_key
 
     def add(self, key, value):
+        index = self._hash(key)
+
+        if not self.buckets[index]:
+          self.buckets[index] = LinkedList()
+          self.buckets[index].append([key, value])
+
+        if self.buckets[index]:
+          current = self.buckets[index].head
+          
+          while current:
+
+            if key == current.value[0]:
+              current.value[1] = value
+              break
+
+            current = current.next
+
+          if not current :
+            self.buckets[index].append([key, value])
+
+    def add_two(self, key, value):
         """[summary]
         Hashes key, adds key and value pair to table. Handles collisions as necessary.
         Args:
@@ -68,18 +104,20 @@ class Hashtable:
         bucket = self.buckets[idx]
 
         if bucket == None:
-            raise KeyError('Key not found')
+            # raise KeyError('Key not found')
+            return None
 
         current = bucket.head
 
         while current:
 
-            if current.value['key'] == key:
-                return current.value['value']
+            if current.value[0] == key:
+                return current.value[1]
 
             current = current.next
         
-        raise KeyError('Key not found')
+        return None
+        # raise KeyError('Key not found')
 
     def contains(self, key):
         """[summary]
@@ -102,7 +140,7 @@ class Hashtable:
 
         while current:
 
-            if current.value['key'] == key:
+            if current.value[0] == key:
                 return True
 
             current = current.next

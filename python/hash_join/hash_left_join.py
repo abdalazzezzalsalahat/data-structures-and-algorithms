@@ -8,26 +8,35 @@ def left_join_hash(hash_one, hash_two):
 
     if not hash_one and hash_two:
         return new_hash
+
+    for element in hash_one.buckets:
+        if element:
+            key = element.head.value[0]
+            val = element.head.value[1]
+            new_hash.add(key, [val, None]) 
     
-    else:
-        
+    for element in hash_two.buckets:
+        if element:
+            result = new_hash.contains(element.head.value[0])
+            key = element.head.value[0]
+            val_one = hash_one.find(key)
+            val_two = element.head.value[1]
+            if result:
+                new_hash.add(key, [val_one, val_two])
+    
+    return new_hash.__str__()
 
+    # else:
+    #     for element in hash_one:
 
-        if hash_one.buckets:
-            for element in hash_one.buckets.head:
-                print(element)
-                val = hash_one.find(element)
-                lst.append(val)
+    #         if element in hash_two:
 
-                if hash_two.contains(element):
-                    val = hash_two.find(element)
-                    lst.append(val)
+    #             val_frst = hash_one.get(element)
+    #             val_sec = hash_two.get(element)
+    #             new_hash.add(element, [val_frst, val_sec])
 
-                else:
-                    lst.append(None)
-                new_hash.add(element, lst)
-        else: 
-            return 'nothing'
+    #         else:
+    #             new_hash.add(element, [val_frst, None])
 
 
 
@@ -77,34 +86,14 @@ def left_join_hash(hash_one, hash_two):
 if __name__ == "__main__":
     
     ht_one = Hashtable()
-    # print(ht_one._hash('A'))
-    # ht_one.add('A', ["someone test", "Rst", "R U ready"])
-    # print(ht_one._hash('911'))
-    # print(ht_one.find('A'))
-    # print(ht_one.find('Ab'))
-    # print(ht_one.contains('C'))
-    # ht_one._hash('fond')
     ht_one.add('fond', 'enamored')
-    # ht_one._hash('wrath')
     ht_one.add('wrath', 'anger')
-    # ht_one._hash('diligent')
     ht_one.add('diligent', 'employed')
-    # ht_one._hash('guide')
     ht_one.add('guide', 'garp')
-    # ht_one._hash('outfit')
     ht_one.add('outfit', 'usher')
 
 
-    # ht_one.add('A', ["someone test", "Rst", "R U ready"]
-
-
     ht_two = Hashtable()
-    # ht_two._hash('fond')
-    # ht_two._hash('wrath')
-    # ht_two._hash('diligent')
-    # ht_two._hash('guide')
-    # ht_two._hash('flow')
-
     ht_two.add('fond', 'averse')
     ht_two.add('wrath', 'delight')
     ht_two.add('diligent', 'idle')
@@ -113,6 +102,7 @@ if __name__ == "__main__":
 
     print(ht_one.find('fond'))
     print(ht_two.find('fond'))
+    # print(left_join(ht_one, ht_two))
 
     print(left_join_hash(ht_one, ht_two))
 
