@@ -45,6 +45,7 @@ if __name__ == "__main__":
     bt.root.left.right = TNode(350)
     bt.root.right.left = TNode(90)
     bt.root.right.right = TNode(10)
+    bt.root.right.right.right = TNode(10)
 
     bt_two = Binary_Tree()
     bt_two.root = TNode(100)
