@@ -7,31 +7,46 @@ class Hashtable:
         """[summary]
         No default inputs.
         """
-        self.buckets = [None] * size
+        self._buckets = [None] * size
 
     def __str__(self):
-        """
-        return the content of the table as string
+        """[summary]
+            return the content of the table as string
+        Returns:
+            [string]: [a string ]
         """
         output = []
-        for i in self.buckets:
+        for i in self._buckets:
             if i:
                 current = i.head
                 while current:
-                    output.append(f"{current.value[0]}: {current.value[1]}")
+                    output.append(f"{current.value['key']}: {current.value['value']}")
                     current = current.next
         string_hashmap = '\n'.join(output)
 
         return string_hashmap
 
+    def __iter__(self):
+        """[summary]
+            a magic function to loop over the hash
+        Yields:
+            [val]: [key value pairs]
+        """
+        for itms in self._buckets:
+            if itms:
+                for val in itms:
+                    yield val
+
+        ### a functon that uses yield is called a generator and they are lazy
+
     def _hash(self, key):
         """[summary]
         Takes in an arbitrary key and returns an index in the collection.
         Args:
-            key ([type]): [description]
+            key ([string]): [description]
 
         Returns:
-            [type]: [description]
+            [hashed_key]: [a hashed key]
         """
 
         prime_value = 1999
@@ -41,27 +56,6 @@ class Hashtable:
         return hashed_key
 
     def add(self, key, value):
-        index = self._hash(key)
-
-        if not self.buckets[index]:
-          self.buckets[index] = LinkedList()
-          self.buckets[index].append([key, value])
-
-        if self.buckets[index]:
-          current = self.buckets[index].head
-          
-          while current:
-
-            if key == current.value[0]:
-              current.value[1] = value
-              break
-
-            current = current.next
-
-          if not current :
-            self.buckets[index].append([key, value])
-
-    def add_two(self, key, value):
         """[summary]
         Hashes key, adds key and value pair to table. Handles collisions as necessary.
         Args:
@@ -71,11 +65,11 @@ class Hashtable:
 
         index = self._hash(key)
 
-        if self.buckets[index] == None:
+        if self._buckets[index] == None:
             bucket = LinkedList()
             
         else:
-            bucket = self.buckets[index]    # bucket is now a linked list
+            bucket = self._buckets[index]    # bucket is now a linked list
         
         bucket.append(
             {
@@ -84,7 +78,7 @@ class Hashtable:
             }
         )
         
-        self.buckets[index] = bucket
+        self._buckets[index] = bucket
 
     def find(self, key):
         """[summary]
@@ -93,31 +87,25 @@ class Hashtable:
         Args:
             key ([string]): [description]
 
-        Raises:
-            KeyError: [if key not found]
-            KeyError: [if key is invalid]
-
         Returns:
             [string]: [returns the value of hashed key]
         """
         idx = self._hash(key)
-        bucket = self.buckets[idx]
+        bucket = self._buckets[idx]
 
         if bucket == None:
-            # raise KeyError('Key not found')
             return None
 
         current = bucket.head
 
         while current:
 
-            if current.value[0] == key:
-                return current.value[1]
+            if current.value['key'] == key:
+                return current.value['value']
 
             current = current.next
         
         return None
-        # raise KeyError('Key not found')
 
     def contains(self, key):
         """[summary]
@@ -130,29 +118,55 @@ class Hashtable:
         """
 
         idx = self._hash(key)
-        bucket = self.buckets[idx]
+        bucket = self._buckets[idx]
 
         if bucket == None:
             return False
 
-        
         current = bucket.head
 
         while current:
 
-            if current.value[0] == key:
+            if current.value['key'] == key:
                 return True
 
             current = current.next
+
+    def keys(self):
+        """[summary]
+            takes a key value pair and return only the keys
+        Returns:
+            [lst]: [list of all keys in a hash]
+        """
+        lst = []
+
+        for key in self: 
+            lst.append(key['key'])
+        return lst
+
+    def entries(self):
+        """[summary]
+        take the hashtable and returns a list of list containing the key and its value
+        Returns:
+            [lst]: [a list of keys and values]
+        """
+        ## Declare a linked list to store the key and the value in 
+        lst = []
+
+        for itms in self: 
+            lst.append(itms)
+        ## return the lst 
+        return lst
+
+
 
 if __name__ == "__main__":
     
     ht_one = Hashtable()
     print(ht_one._hash('A'))
     ht_one.add('A', ["someone test", "Rst", "R U ready"])
-    print(ht_one._hash('911'))
-    print(ht_one.find('A'))
-    print(ht_one.contains('C'))
-    
+    print(ht_one.entries())
+    print(ht_one.keys())
+    ht_one.add('klsdjk')
 
 

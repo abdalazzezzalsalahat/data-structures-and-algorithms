@@ -37,7 +37,7 @@ def test_left_join(): ## 3
     two.add('diligent', 'idle')
     two.add('guide', 'follow')
     two.add('flow', 'jam')
-    assert left_join_hash(one, two) == "outfit: ['garb', None]\ndiligent: ['employed', 'idle']\nwrath: ['anger', 'delight']\nfond: ['enamored', 'averse']\nguide: ['usher', 'follow']"
+    assert str(left_join_hash(one, two)) == "outfit: ['garb', None]\ndiligent: ['employed', 'idle']\nwrath: ['anger', 'delight']\nfond: ['enamored', 'averse']\nguide: ['usher', 'follow']"
 
 def test_left_join_if_no_any_matching(): ## 4
     one = Hashtable()
@@ -54,7 +54,7 @@ def test_left_join_if_no_any_matching(): ## 4
     two.add('guide', 'follow')
     two.add('flow', 'jam')
 
-    assert left_join_hash(one, two) == "hangguide: ['usher', None]\npond: ['enamored', None]\nrath: ['anger', None]\npoutfit: ['garb', None]\nadiligent: ['employed', None]"
+    assert str(left_join_hash(one, two)) == "hangguide: ['usher', None]\npond: ['enamored', None]\nrath: ['anger', None]\npoutfit: ['garb', None]\nadiligent: ['employed', None]"
 
 
 
