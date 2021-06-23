@@ -15,8 +15,6 @@ def left_join_hash(hash_one, hash_two):
     return new_hash
 
 
-
-
 if __name__ == "__main__":
     
     ht_one = Hashtable()
@@ -35,11 +33,4 @@ if __name__ == "__main__":
     ht_two.add('flow', 'jam')
     
     print(left_join_hash(ht_one, ht_two))
-
-
-
-
-
-
-
 
