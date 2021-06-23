@@ -10,8 +10,10 @@ class Hashtable:
         self._buckets = [None] * size
 
     def __str__(self):
-        """
-        return the content of the table as string
+        """[summary]
+            return the content of the table as string
+        Returns:
+            [string]: [a string ]
         """
         output = []
         for i in self._buckets:
@@ -25,13 +27,14 @@ class Hashtable:
         return string_hashmap
 
     def __iter__(self):
-        ## Itersate through the hash
+        """[summary]
+            a magic function to loop over the hash
+        Yields:
+            [val]: [key value pairs]
+        """
         for itms in self._buckets:
-        ### check if the buckets are not None
             if itms:
-        ##### Iterate through the list
                 for val in itms:
-        ##### Append the value  in the lst
                     yield val
 
         ### a functon that uses yield is called a generator and they are lazy
@@ -40,10 +43,10 @@ class Hashtable:
         """[summary]
         Takes in an arbitrary key and returns an index in the collection.
         Args:
-            key ([type]): [description]
+            key ([string]): [description]
 
         Returns:
-            [type]: [description]
+            [hashed_key]: [a hashed key]
         """
 
         prime_value = 1999
@@ -52,7 +55,7 @@ class Hashtable:
 
         return hashed_key
 
-    def add_two(self, key, value):
+    def add(self, key, value):
         """[summary]
         Hashes key, adds key and value pair to table. Handles collisions as necessary.
         Args:
@@ -84,10 +87,6 @@ class Hashtable:
         Args:
             key ([string]): [description]
 
-        Raises:
-            KeyError: [if key not found]
-            KeyError: [if key is invalid]
-
         Returns:
             [string]: [returns the value of hashed key]
         """
@@ -95,7 +94,6 @@ class Hashtable:
         bucket = self._buckets[idx]
 
         if bucket == None:
-            # raise KeyError('Key not found')
             return None
 
         current = bucket.head
@@ -108,7 +106,6 @@ class Hashtable:
             current = current.next
         
         return None
-        # raise KeyError('Key not found')
 
     def contains(self, key):
         """[summary]
@@ -126,7 +123,6 @@ class Hashtable:
         if bucket == None:
             return False
 
-        
         current = bucket.head
 
         while current:
@@ -137,19 +133,22 @@ class Hashtable:
             current = current.next
 
     def keys(self):
-        """
-        takes a key value pair and return only the keys
+        """[summary]
+            takes a key value pair and return only the keys
+        Returns:
+            [lst]: [list of all keys in a hash]
         """
         lst = []
 
         for key in self: 
             lst.append(key['key'])
-        ## return the lst 
         return lst
 
     def entries(self):
-        """
+        """[summary]
         take the hashtable and returns a list of list containing the key and its value
+        Returns:
+            [lst]: [a list of keys and values]
         """
         ## Declare a linked list to store the key and the value in 
         lst = []
@@ -165,9 +164,9 @@ if __name__ == "__main__":
     
     ht_one = Hashtable()
     print(ht_one._hash('A'))
-    ht_one.add_two('A', ["someone test", "Rst", "R U ready"])
+    ht_one.add('A', ["someone test", "Rst", "R U ready"])
     print(ht_one.entries())
     print(ht_one.keys())
-    ht_one.add_two
+    ht_one.add('klsdjk')
 
 

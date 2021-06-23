@@ -8,16 +8,13 @@ def test_hash_add(): ## 1
     """[summary]
     Test if adding a key/value to your hashtable results in the value being in the data structure
     """
-    # ht = Hashtable()
-    # idx = ht._hash('Dario')
-    # ht.add('Dario','what ever you want')
-    # ll = ht.buckets[idx]
-    # key = ll.head.value.find(0)
-    # value = ll.head.value.find(1)
-    # assert 'Dario' == key
-    # assert 'what ever you want' == value
-    pass
-
+    ht = Hashtable()
+    ht.add('Dario','what ever you want')
+    key = ht.keys()
+    value = ht.find(key[0])
+    assert ['Dario'] == key
+    assert 'what ever you want' == value
+    
 def test_hash_get(): ## 2
     """[summary]
     Retrieving based on a key returns the value stored
