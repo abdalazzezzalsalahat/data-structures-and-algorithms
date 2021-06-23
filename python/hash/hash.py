@@ -7,22 +7,34 @@ class Hashtable:
         """[summary]
         No default inputs.
         """
-        self.buckets = [None] * size
+        self._buckets = [None] * size
 
     def __str__(self):
         """
         return the content of the table as string
         """
         output = []
-        for i in self.buckets:
+        for i in self._buckets:
             if i:
                 current = i.head
                 while current:
-                    output.append(f"{current.value[0]}: {current.value[1]}")
+                    output.append(f"{current.value['key']}: {current.value['value']}")
                     current = current.next
         string_hashmap = '\n'.join(output)
 
         return string_hashmap
+
+    def __iter__(self):
+        ## Itersate through the hash
+        for itms in self._buckets:
+        ### check if the buckets are not None
+            if itms:
+        ##### Iterate through the list
+                for val in itms:
+        ##### Append the value  in the lst
+                    yield val
+
+        ### a functon that uses yield is called a generator and they are lazy
 
     def _hash(self, key):
         """[summary]
@@ -40,27 +52,6 @@ class Hashtable:
 
         return hashed_key
 
-    def add(self, key, value):
-        index = self._hash(key)
-
-        if not self.buckets[index]:
-          self.buckets[index] = LinkedList()
-          self.buckets[index].append([key, value])
-
-        if self.buckets[index]:
-          current = self.buckets[index].head
-          
-          while current:
-
-            if key == current.value[0]:
-              current.value[1] = value
-              break
-
-            current = current.next
-
-          if not current :
-            self.buckets[index].append([key, value])
-
     def add_two(self, key, value):
         """[summary]
         Hashes key, adds key and value pair to table. Handles collisions as necessary.
@@ -71,11 +62,11 @@ class Hashtable:
 
         index = self._hash(key)
 
-        if self.buckets[index] == None:
+        if self._buckets[index] == None:
             bucket = LinkedList()
             
         else:
-            bucket = self.buckets[index]    # bucket is now a linked list
+            bucket = self._buckets[index]    # bucket is now a linked list
         
         bucket.append(
             {
@@ -84,7 +75,7 @@ class Hashtable:
             }
         )
         
-        self.buckets[index] = bucket
+        self._buckets[index] = bucket
 
     def find(self, key):
         """[summary]
@@ -101,7 +92,7 @@ class Hashtable:
             [string]: [returns the value of hashed key]
         """
         idx = self._hash(key)
-        bucket = self.buckets[idx]
+        bucket = self._buckets[idx]
 
         if bucket == None:
             # raise KeyError('Key not found')
@@ -111,8 +102,8 @@ class Hashtable:
 
         while current:
 
-            if current.value[0] == key:
-                return current.value[1]
+            if current.value['key'] == key:
+                return current.value['value']
 
             current = current.next
         
@@ -130,7 +121,7 @@ class Hashtable:
         """
 
         idx = self._hash(key)
-        bucket = self.buckets[idx]
+        bucket = self._buckets[idx]
 
         if bucket == None:
             return False
@@ -140,19 +131,43 @@ class Hashtable:
 
         while current:
 
-            if current.value[0] == key:
+            if current.value['key'] == key:
                 return True
 
             current = current.next
+
+    def keys(self):
+        """
+        takes a key value pair and return only the keys
+        """
+        lst = []
+
+        for key in self: 
+            lst.append(key['key'])
+        ## return the lst 
+        return lst
+
+    def entries(self):
+        """
+        take the hashtable and returns a list of list containing the key and its value
+        """
+        ## Declare a linked list to store the key and the value in 
+        lst = []
+
+        for itms in self: 
+            lst.append(itms)
+        ## return the lst 
+        return lst
+
+
 
 if __name__ == "__main__":
     
     ht_one = Hashtable()
     print(ht_one._hash('A'))
-    ht_one.add('A', ["someone test", "Rst", "R U ready"])
-    print(ht_one._hash('911'))
-    print(ht_one.find('A'))
-    print(ht_one.contains('C'))
-    
+    ht_one.add_two('A', ["someone test", "Rst", "R U ready"])
+    print(ht_one.entries())
+    print(ht_one.keys())
+    ht_one.add_two
 
 

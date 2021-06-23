@@ -44,6 +44,14 @@ class LinkedList():
         node.next = self.head
         self.head = node
 
+    def __iter__(self):
+        """
+        loop over the linked list 
+        """
+        current = self.head
+        while current:
+            yield current.value
+            current = current.next
 
     def includes(self, values):
           '''
@@ -148,6 +156,14 @@ class LinkedList():
             count += 1
             current = current.next
 
+if __name__ == "__main__":
 
+    ll = LinkedList()
+    ll.insert(1)
+    ll.insert(2)
+    ll.insert(3)
+    # for i in ll:
+    #     # print(i)
+    #     print(iter(i))
+    
 
-            

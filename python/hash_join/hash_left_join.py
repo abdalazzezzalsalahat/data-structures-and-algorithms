@@ -4,52 +4,40 @@ from hash.hash import *
 def left_join_hash(hash_one, hash_two):
     
     new_hash = Hashtable()
-    lst = []
 
     if not hash_one and hash_two:
         return new_hash
 
-    for element in hash_one.buckets:
-        if element:
-            key = element.head.value[0]
-            val = element.head.value[1]
-            new_hash.add(key, [val, None]) 
+    for element in hash_one:
+        result = hash_two.find(element['key'])
+        new_hash.add_two(element['key'], [element['value'], result])
     
-    for element in hash_two.buckets:
-        if element:
-            result = new_hash.contains(element.head.value[0])
-            key = element.head.value[0]
-            val_one = hash_one.find(key)
-            val_two = element.head.value[1]
-            if result:
-                new_hash.add(key, [val_one, val_two])
-    
-    return new_hash.__str__()
+    return new_hash
+
 
 
 
 if __name__ == "__main__":
     
     ht_one = Hashtable()
-    ht_one.add('fond', 'enamored')
-    ht_one.add('wrath', 'anger')
-    ht_one.add('diligent', 'employed')
-    ht_one.add('guide', 'garp')
-    ht_one.add('outfit', 'usher')
+    ht_one.add_two('fond', 'enamored')
+    ht_one.add_two('wrath', 'anger')
+    ht_one.add_two('diligent', 'employed')
+    ht_one.add_two('guide', 'garp')
+    ht_one.add_two('outfit', 'usher')
 
 
     ht_two = Hashtable()
-    ht_two.add('fond', 'averse')
-    ht_two.add('wrath', 'delight')
-    ht_two.add('diligent', 'idle')
-    ht_two.add('guide', 'follow')
-    ht_two.add('flow', 'jam')
-
-    print(ht_one.find('fond'))
-    print(ht_two.find('fond'))
-    # print(left_join(ht_one, ht_two))
-
+    ht_two.add_two('fond', 'averse')
+    ht_two.add_two('wrath', 'delight')
+    ht_two.add_two('diligent', 'idle')
+    ht_two.add_two('guide', 'follow')
+    ht_two.add_two('flow', 'jam')
+    
     print(left_join_hash(ht_one, ht_two))
+
+
+
 
 
 
