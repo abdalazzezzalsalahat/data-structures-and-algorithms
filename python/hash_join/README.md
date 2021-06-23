@@ -12,6 +12,6 @@
 
 ## White-Board
 
-![img]()
+![img](../assets/left_join_hash.png)
 
 

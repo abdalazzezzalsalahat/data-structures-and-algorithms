@@ -26,61 +26,6 @@ def left_join_hash(hash_one, hash_two):
     
     return new_hash.__str__()
 
-    # else:
-    #     for element in hash_one:
-
-    #         if element in hash_two:
-
-    #             val_frst = hash_one.get(element)
-    #             val_sec = hash_two.get(element)
-    #             new_hash.add(element, [val_frst, val_sec])
-
-    #         else:
-    #             new_hash.add(element, [val_frst, None])
-
-
-
-# def hash_intersection(hash_one, hash_two):
-#     """[summary]
-
-#     Args:
-#         tree_one ([binary tree]): [unorderd]
-#         tree_two ([binary tree]): [unorderd]
-
-#     Returns:
-#         [list]: [list of the intersections elemnts of the two trees]
-#     """
-
-#     if not hash_one and not hash_two:
-#         return "tree is empty"
-        
-#     else:
-#         # hash_one = hash_one.pre_order()
-#         # hash_two = hash_two.pre_order()
-#         lst = []
-#         hash_map = Hashtable()
-        
-#         for element in hash_one:
-#             str_el = str(element)
-#             if hash_one.contains(str_el):
-
-
-
-
-
-
-#         for element in hash_one:
-            
-#             if hash_map.contains(str_el):
-#                 lst.append()
-
-#         for element in hash_two:
-#             str_el = str(element)
-#             if hash_map.contains(str_el):
-
-#             hash_map.append(str_el)
-
-#     return hash_map
 
 
 if __name__ == "__main__":
