@@ -3,10 +3,27 @@ class Node():
         self.value = value
         self.next = None
 
-
 class LinkedList():
+
     def __init__(self):
         self.head = None
+
+    def __str__(self):
+        current = self.head
+        output = ''
+        while current:
+            output += f"{ {str(current.value)} } ->"
+            current = current.next
+        return output
+
+    def __iter__(self):
+        """
+        loop over the linked list 
+        """
+        current = self.head
+        while current:
+            yield current.value
+            current = current.next
 
     def append(self, value):
         '''
@@ -26,15 +43,6 @@ class LinkedList():
                     current = current.next
                 current.next = new_node
 
-
-    def __str__(self):
-        current = self.head
-        output = ''
-        while current:
-            output += f"{ {str(current.value)} } ->"
-            current = current.next
-        return output
-
     def insert(self, value):
         '''
         this method to adds an element to the list 
@@ -43,15 +51,6 @@ class LinkedList():
         node = Node(value)
         node.next = self.head
         self.head = node
-
-    def __iter__(self):
-        """
-        loop over the linked list 
-        """
-        current = self.head
-        while current:
-            yield current.value
-            current = current.next
 
     def includes(self, values):
           '''
@@ -145,7 +144,7 @@ class LinkedList():
             k = k -1
         return arr[k].value
         
-#################################################################
+    #################################################################
 
     def kth_from_end_second(self, k):
         current = self.head
@@ -156,14 +155,54 @@ class LinkedList():
             count += 1
             current = current.next
 
+    #################################################################
+
+    def deleteNode(self, k):
+        temp = self.head
+
+        if (temp is not None):
+        
+            if (temp.value == k):
+                self.head = temp.next
+                temp = None
+                return
+        
+        while(temp is not None):
+        
+            if temp.value == k:
+                break
+        
+            prev = temp
+            temp = temp.next
+        
+        if(temp == None):
+            return
+        
+        prev.next = temp.next
+        temp = None
+
+
+
 if __name__ == "__main__":
 
     ll = LinkedList()
-    ll.insert(1)
-    ll.insert(2)
-    ll.insert(3)
-    # for i in ll:
-    #     # print(i)
-    #     print(iter(i))
-    
+    ll.append(1)
+    ll.append(2)
+    ll.append(3)
+    ll.append(12)
+    ll.append(232)
+    ll.append(324)
+    ll.append(14235)
+    ll.append(22366)
+    ll.append(3234)
+    ll.append(134)
+    ll.append(2545)
+    ll.append(367)
+    print(str(ll))
+    ll.deleteNode(22366)
+    ll.deleteNode(1)
+    ll.deleteNode(324)
+    ll.deleteNode(367)
+    print(str(ll))
+
 
