@@ -1,9 +1,6 @@
-# from stacks_and_queues.stacks_and_queues import *
-# import collections
-from collections import deque
-# from typing import List
-# from sets import Set
-# from stacks_and_queues.stacks_and_queues import Queue, Stack
+from collections import deque, defaultdict
+
+from _pytest import capture
 
 
 class Queue():
@@ -48,15 +45,15 @@ class Vertex:
         self.value = value
 
 class Edge:
-    def __init__(self, vertix, wheight ) -> None:
+    def __init__(self, vertix, weight ) -> None:
         """[summary]
             initializing a connection (Graph Edge) between two vertcies
         Args:
             vertix ([type]): [description]
-            wheight ([int]): [the wheight of an Edge]
+            weight ([int]): [the weight of an Edge]
         """
         self.vertix = vertix
-        self.wheight = wheight
+        self.weight = weight
 
 class Graph():
 
@@ -70,7 +67,25 @@ class Graph():
         """[summary]
             a function to return list of nodsd in formated string format
         """
-        pass
+        res = "Vertices: "
+        for vert in self._adjacency_list:
+            res += str(vert) + " "
+        return res
+
+    def __iter__(self):
+        """[summary]
+            magic function to iterate over the Graph
+        Returns:
+            [type]: [description]
+        """
+        self._iter_obj = iter(self._adjacency_list)
+        return self._iter_obj
+
+    def __next__(self):
+        """[summary]
+        magic function to iterate over vertices
+        """
+        return next(self._iter_obj)
 
     def add_vertix(self, value):
         """[summary]
@@ -111,23 +126,9 @@ class Graph():
         Returns:
             [int]: [description]
         """
-        return len(self._adjacency_list)
-
-    def find_all_paths(self, start_vertix):
-        """[summary]
-            a function to find all paths between all points
-        Args:
-            start_vertix ([type]): [description]
-        """
-        pass
-
-    def shortest_path(self, start_vertix):
-        """[summary]
-            a function to find the shortest path between a starting point and ending point 
-        Args:
-            start_vertix ([type]): [description]
-        """
-        pass
+        if len(self._adjacency_list):
+            return len(self._adjacency_list)
+        return 'Graph is empty'
 
     def get_neighbors(self, vertix):
         """[summary]
@@ -140,13 +141,52 @@ class Graph():
         """
         return self._adjacency_list.get(vertix, [])
 
-    def get_nodes(self):
+    def get_tuple_neighbors(self, vertix):
+        """[summary]
+            a function to return a tuple of all neighbors with their weights
+        Args:
+            vertix ([type]): [description]
+
+        Raises:
+            KeyError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        lst = []
+        n = self.get_neighbors(vertix)
+        if n: 
+
+            for edge in n:
+
+                if edge.weight:
+                    lst.append((str(edge.vertix.value), edge.weight))
+
+                else:
+                    lst.append(str((edge.vertix.value)))
+
+            return lst
+
+        raise KeyError("No neighbors found")
+
+    def get_vertices(self):
         """[summary]
             get all the nodes in a Graph
         Returns:
             [type]: [description]
         """
         return self._adjacency_list.keys()
+
+    def get_edge(self, vertix):
+        """[summary]
+            returns a list of all the edges of a vertice
+        Args:
+            vertix ([type]): [description]
+
+        Returns:
+            [list]: [all edges of a vertix]
+        """
+        return self._adjacency_list[vertix]
 
     def BFS(self, start_vertix, action = (lambda x : None)):
         """[summary]
@@ -176,21 +216,88 @@ class Graph():
                     visited.add(n_vert)
                 queue.enqueue(n_vert)
 
+    def DFS(self, start_vertix, action = (lambda x : None)):
+        """[summary]
+            tree
+        Args:
+            start_vertix ([type]): [description]
+            action (tuple, optional): [description]. Defaults to (lambda x : None).
+        """
+        visited = set()
+        visited.add(start_vertix)
+        neighbrs = self.get_neighbors(start_vertix)
+
+        for vertix in neighbrs:
+            action(start_vertix)
+
+            if vertix not in visited:
+                self.DFS(vertix)
+                visited.add(vertix)
+    
+    def find_all_paths(self, start_vertix):
+        """[summary]
+            a function to find all paths between all points
+        Args:
+            start_vertix ([type]): [description]
+        """
+        pass
+
+    def shortest_path(self, start_vertix):
+        """[summary]
+            a function to find the shortest path between a starting point and ending point 
+        Args:
+            start_vertix ([type]): [description]
+        """
+        pass
+
+    def get_neighbors_second(self,vertex):
+        result = []
+        if len(self._adjacency_list.get(vertex)):
+            # print('whats wront with', self._adjacency_list.get(vertex))
+            for l in range(len(self._adjacency_list.get(vertex))):
+                result.append([self._adjacency_list.get(vertex)[l].vertix.value,
+                            self._adjacency_list.get(vertex)[l].weight])
+        return result
 
 
 
 
 if __name__ == "__main__":
     g = Graph()
-    one = g.add_vertix('ojsffvwi')
-    two = g.add_vertix('ojsdb')
-    three = g.add_vertix('ojsdbfpiieio')
-    four = g.add_vertix('osd00000')
+    one = g.add_vertix('one')
+    two = g.add_vertix('two')
+    three = g.add_vertix('three')
+    four = g.add_vertix('four')
+    five = g.add_vertix('five')
+    
     g.add_edge(one, two)
-    g.add_edge(one, four)
+    g.add_edge(two, one, 5)
+
+    g.add_edge(one, three)
+    g.add_edge(three, one, 2)
+    g.add_edge(three, three)
+    
     g.add_edge(four, three)
-    print(g.size())
-    # print(g.get_nodes())
-    g.BFS(one, lambda ver: print(ver.value))
+    g.add_edge(three, four, 7)
+    
+    g.add_edge(two, three)
+    g.add_edge(three, two, 4)
+    
+    g.add_edge(two, four)
+    g.add_edge(four, two, 3)
+
+    g.add_edge(one, five)
+    g.add_edge(four, five)
+    g.add_edge(five, five, 5)
+
+
+    # print(g.size())
+    # print(g.get_vertices())
+    # g.BFS(four, lambda ver: print(ver.value))
+
+    # g.DFS(four, lambda ver: print(ver.value))
+
+    # print(next(g))
+
 
 
