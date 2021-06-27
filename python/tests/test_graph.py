@@ -19,7 +19,7 @@ import pytest
 
 # 8) An empty graph properly returns null ###
 
-
+# 9) Test Breadth First Search ### 
 
 @pytest.fixture
 def vertix_fixture():
@@ -166,5 +166,33 @@ def test_empty_graph(): ## 8
     expected = 'Graph is empty'
     actual = g.size()
     assert actual == expected
+
+def test_BFS(): ## 9
+    """[summary]
+    testing the BFS
+    """
+    g = Graph()
+    Pandora = g.add_vertix('Pandora')
+    Arendelle = g.add_vertix('Arendelle')
+    Metroville = g.add_vertix('Metroville')
+    Monstroplolis = g.add_vertix('Monstroplolis')
+    Narnia = g.add_vertix('Narnia')
+    Naboo = g.add_vertix('Naboo')
+    
+    g.add_edge(Pandora, Arendelle)
+    g.add_edge(Arendelle, Metroville)
+    g.add_edge(Arendelle, Monstroplolis)
+    g.add_edge(Metroville, Monstroplolis)
+    g.add_edge(Metroville, Narnia)
+    g.add_edge(Metroville, Naboo)
+
+    expected = {'Naboo', 'Monstroplolis', 'Arendelle', 'Pandora', 'Metroville', 'Narnia'}
+    lst = set()
+    g.BFS(Pandora, lambda ver: lst.add(ver.value))
+    actual = lst
+    assert actual == expected
+
+
+
 
 

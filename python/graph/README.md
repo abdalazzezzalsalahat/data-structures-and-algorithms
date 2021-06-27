@@ -66,6 +66,6 @@ My Graph has many public methods:
 3. **`get_vertices()`**: returns all of the nodes as a collection
 4. **`get_neighbors(vertix)`**: returns a collection of nodes (with weights) connected to a node, takes in a node
 5. **`size()`**: returns number of nodes in Graph; integer
-
+6. **`BFS(self, start_vertix, action = (lambda x : None)`**: Graph Breadth First Search function
 
 
