@@ -233,7 +233,7 @@ class Graph():
             if vertix not in visited:
                 self.DFS(vertix)
                 visited.add(vertix)
-    
+
     def find_all_paths(self, start_vertix):
         """[summary]
             a function to find all paths between all points
@@ -258,6 +258,7 @@ class Graph():
                 result.append([self._adjacency_list.get(vertex)[l].vertix.value,
                             self._adjacency_list.get(vertex)[l].weight])
         return result
+
 
 
 
@@ -290,7 +291,23 @@ if __name__ == "__main__":
     g.add_edge(four, five)
     g.add_edge(five, five, 5)
 
+    gs = Graph()
 
+    Pandora = gs.add_vertix('Pandora')
+    Arendelle = gs.add_vertix('Arendelle')
+    Metroville = gs.add_vertix('Metroville')
+    Monstroplolis = gs.add_vertix('Monstroplolis')
+    Narnia = gs.add_vertix('Narnia')
+    Naboo = gs.add_vertix('Naboo')
+    
+    gs.add_edge(Pandora, Arendelle)
+    gs.add_edge(Arendelle, Metroville)
+    gs.add_edge(Arendelle, Monstroplolis)
+    gs.add_edge(Metroville, Monstroplolis)
+    gs.add_edge(Metroville, Narnia)
+    gs.add_edge(Metroville, Naboo)
+
+    print(gs.BFS(Pandora, lambda ver: None))
     # print(g.size())
     # print(g.get_vertices())
     # g.BFS(four, lambda ver: print(ver.value))
