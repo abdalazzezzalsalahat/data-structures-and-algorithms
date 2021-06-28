@@ -126,7 +126,7 @@ def test_neighbors_with_weight_between_nodes(graph_fexture): ## 5
     graph_fexture.add_edge(test, one, 5)
     graph_fexture.add_edge(test, two, 2)
 
-    expected = [('one', 5),('two', 2)]
+    expected = {('one', 5),('two', 2)}
     actual = graph_fexture.get_tuple_neighbors(test)
     assert actual == expected
 
@@ -142,7 +142,7 @@ def test_size_neighbors(graph_fexture): ## 6
     graph_fexture.add_edge(test, two)
 
     actual = graph_fexture.get_tuple_neighbors(test)
-    expected = ['two']
+    expected = {'two'}
     assert actual == expected
 
 def test_one_node_and_one_edge(): ## 7
@@ -154,7 +154,7 @@ def test_one_node_and_one_edge(): ## 7
 
     g.add_edge(test, test, 5)
     actual = g.get_tuple_neighbors(test)
-    expected = [("test", 5)]
+    expected = {("test", 5)}
     assert g.size() == 1
     assert actual == expected
 
