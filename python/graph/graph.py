@@ -1,6 +1,6 @@
 from collections import deque, defaultdict
 
-from _pytest import capture
+# from _pytest import capture
 
 
 class Queue():
@@ -69,7 +69,7 @@ class Graph():
         """
         res = "Vertices: "
         for vert in self._adjacency_list:
-            res += str(vert) + " "
+            res += str(vert.value) + "\n_________"
         return res
 
     def __iter__(self):
@@ -85,7 +85,21 @@ class Graph():
         """[summary]
         magic function to iterate over vertices
         """
-        return next(self._iter_obj)
+        return next(self.__iter__())
+
+    def size(self):
+        """[summary]
+            function to return the size of a Graph
+        Returns:
+            [int]: [description]
+        """
+        if len(self._adjacency_list):
+            return len(self._adjacency_list)
+        return 'Graph is empty'
+
+
+
+
 
     def add_vertix(self, value):
         """[summary]
@@ -120,15 +134,49 @@ class Graph():
 
         self._adjacency_list[start_vertix].append(Edge(end_vertix, weight))
 
-    def size(self):
+    def add_multi_edge(self, start_vertix, end_vertix_one, end_vertix_two, weight = 0):
         """[summary]
-            function to return the size of a Graph
-        Returns:
-            [int]: [description]
+            a function to add an Edge between two vertcies
+        Args:
+            start_vertix ([type]): [description]
+            end_vertix ([type]): [description]
+            weight (int, optional): [description]. Defaults to 0.
+
+        Raises:
+            KeyError: [description]
+            KeyError: [description]
         """
-        if len(self._adjacency_list):
-            return len(self._adjacency_list)
-        return 'Graph is empty'
+        if start_vertix not in self._adjacency_list:
+            raise KeyError("Starting point not found")
+
+        if end_vertix_one not in self._adjacency_list and end_vertix_two not in self._adjacency_list :
+            raise KeyError("Ending point not found")
+
+        self._adjacency_list[start_vertix].append(Edge(end_vertix_one, weight), Edge(end_vertix_two, weight))
+
+    def add_edge_reverced(self, start_vertix, end_vertix, weight = 0):
+        """[summary]
+            a function to add an Edge between two vertcies
+        Args:
+            start_vertix ([type]): [description]
+            end_vertix ([type]): [description]
+            weight (int, optional): [description]. Defaults to 0.
+
+        Raises:
+            KeyError: [description]
+            KeyError: [description]
+        """
+        if start_vertix not in self._adjacency_list:
+            raise KeyError("Starting point not found")
+
+        if end_vertix not in self._adjacency_list:
+            raise KeyError("Ending point not found")
+
+        self._adjacency_list[end_vertix].append(Edge(start_vertix, weight))
+
+
+
+
 
     def get_neighbors(self, vertix):
         """[summary]
@@ -153,29 +201,60 @@ class Graph():
         Returns:
             [type]: [description]
         """
-        lst = []
+        lst = set()
         n = self.get_neighbors(vertix)
         if n: 
 
             for edge in n:
 
                 if edge.weight:
-                    lst.append((str(edge.vertix.value), edge.weight))
+                    lst.add((str(edge.vertix.value), edge.weight))
 
                 else:
-                    lst.append(str((edge.vertix.value)))
+                    lst.add(str((edge.vertix.value)))
 
             return lst
 
         raise KeyError("No neighbors found")
 
+    def get_neighbors_second(self,vertex):
+        """[summary]
+            another way of getting a vertex neighbors
+        Args:
+            vertex ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        result = []
+        if len(self._adjacency_list.get(vertex)):
+            # print('whats wront with', self._adjacency_list.get(vertex))
+            for l in range(len(self._adjacency_list.get(vertex))):
+                result.append([self._adjacency_list.get(vertex)[l].vertix.value,
+                            self._adjacency_list.get(vertex)[l].weight])
+        return result
+
     def get_vertices(self):
         """[summary]
             get all the nodes in a Graph
         Returns:
-            [type]: [description]
+            [list]: [all the keys in the hashMap]
         """
         return self._adjacency_list.keys()
+
+    def get_tuple_vertix(self):
+        """[summary]
+            a function to get all the vertices values
+        Returns:
+            [type]: [description]
+        """
+        lst = []
+        t = self.get_vertices()
+
+        for ver in t:
+            lst.append(ver.value)
+
+        return lst
 
     def get_edge(self, vertix):
         """[summary]
@@ -187,6 +266,35 @@ class Graph():
             [list]: [all edges of a vertix]
         """
         return self._adjacency_list[vertix]
+
+
+
+
+    def validate_vertix(self, lst):
+        v = gs.get_tuple_vertix()
+        bool = False
+        for l in lst:
+
+            if l in v:
+                bool =  True
+            else:
+                bool = False
+        
+        return bool
+
+    def get_valid(self, value):
+        """[summary]
+            get the valid vertex from Graph
+        Args:
+            value ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        return self._adjacency_list[value]
+
+
+
 
     def BFS(self, start_vertix, action = (lambda x : None)):
         """[summary]
@@ -216,24 +324,67 @@ class Graph():
                     visited.add(n_vert)
                 queue.enqueue(n_vert)
 
-    def DFS(self, start_vertix, action = (lambda x : None)):
+    def DFS(self):
         """[summary]
-            tree
-        Args:
-            start_vertix ([type]): [description]
-            action (tuple, optional): [description]. Defaults to (lambda x : None).
+        Graph Depth First Search function
         """
         visited = set()
-        visited.add(start_vertix)
-        neighbrs = self.get_neighbors(start_vertix)
+        lst = []
+        vertex = next(iter(self.get_vertices()))
+        
+        def DFS_helper(vertex):
+            visited.add(vertex)
 
-        for vertix in neighbrs:
-            action(start_vertix)
+            neighbors = self.get_neighbors(vertex)
 
-            if vertix not in visited:
-                self.DFS(vertix)
+            lst.append(vertex.value)
+
+            for neighbor in neighbors:
+                if neighbor.vertix not in visited:
+                    DFS_helper(neighbor.vertix)
+        
+        DFS_helper(vertex)
+        return lst
+
+    def findCheapestPrice(self, flights):
+        verts = self.get_vertices()
+        verts_vals = self.get_tuple_vertix()
+        res = self.validate_vertix(verts_vals)
+        visited = set()
+        pr = []
+        xcv = 0
+        price = 0
+        vvvvv = 0
+        if res:
+            for v in verts:
+                if v.value in flights:
+                    vvvvv = v
+                    break
+            def smth(vertix, price):
+                price = price
                 visited.add(vertix)
+                wets = self.get_neighbors(vertix)
+                for w in wets:
+                    
+                    x = w.vertix
+                    y = w.vertix.value
+                    # print(y)
+                    
+                    if x in visited:
+                        continue
+                    
+                    if y in flights:
+                        price += w.weight
+                        pr.append(price)
+                        smth(x, price)
+                        return pr[-1]
+        
+        return (res, smth(vvvvv, price))
 
+
+
+
+    ########### NOT READY YET ((((((((((  C O M I N G   S O O N   )))))))))) ###########
     def find_all_paths(self, start_vertix):
         """[summary]
             a function to find all paths between all points
@@ -250,46 +401,10 @@ class Graph():
         """
         pass
 
-    def get_neighbors_second(self,vertex):
-        result = []
-        if len(self._adjacency_list.get(vertex)):
-            # print('whats wront with', self._adjacency_list.get(vertex))
-            for l in range(len(self._adjacency_list.get(vertex))):
-                result.append([self._adjacency_list.get(vertex)[l].vertix.value,
-                            self._adjacency_list.get(vertex)[l].weight])
-        return result
-
-
 
 
 
 if __name__ == "__main__":
-    g = Graph()
-    one = g.add_vertix('one')
-    two = g.add_vertix('two')
-    three = g.add_vertix('three')
-    four = g.add_vertix('four')
-    five = g.add_vertix('five')
-    
-    g.add_edge(one, two)
-    g.add_edge(two, one, 5)
-
-    g.add_edge(one, three)
-    g.add_edge(three, one, 2)
-    g.add_edge(three, three)
-    
-    g.add_edge(four, three)
-    g.add_edge(three, four, 7)
-    
-    g.add_edge(two, three)
-    g.add_edge(three, two, 4)
-    
-    g.add_edge(two, four)
-    g.add_edge(four, two, 3)
-
-    g.add_edge(one, five)
-    g.add_edge(four, five)
-    g.add_edge(five, five, 5)
 
     gs = Graph()
 
@@ -300,19 +415,112 @@ if __name__ == "__main__":
     Narnia = gs.add_vertix('Narnia')
     Naboo = gs.add_vertix('Naboo')
     
-    gs.add_edge(Pandora, Arendelle)
-    gs.add_edge(Arendelle, Metroville)
-    gs.add_edge(Arendelle, Monstroplolis)
-    gs.add_edge(Metroville, Monstroplolis)
-    gs.add_edge(Metroville, Narnia)
-    gs.add_edge(Metroville, Naboo)
+    gs.add_edge(Pandora, Arendelle, 150)
+    gs.add_edge(Pandora, Metroville, 82)
+    gs.add_edge(Arendelle, Metroville, 99)
+    gs.add_edge(Arendelle, Monstroplolis, 42)
+    gs.add_edge(Monstroplolis, Naboo, 73)
+    gs.add_edge(Metroville, Monstroplolis, 105)
+    gs.add_edge(Metroville, Narnia, 37)
+    gs.add_edge(Metroville, Naboo, 26)
+    gs.add_edge(Narnia, Naboo, 26)
 
-    print(gs.BFS(Pandora, lambda ver: None))
-    # print(g.size())
-    # print(g.get_vertices())
-    # g.BFS(four, lambda ver: print(ver.value))
+    gs.add_edge_reverced(Pandora, Arendelle, 150)
+    gs.add_edge_reverced(Pandora, Metroville, 82)
+    gs.add_edge_reverced(Arendelle, Metroville, 99)
+    gs.add_edge_reverced(Arendelle, Monstroplolis, 42)
+    gs.add_edge_reverced(Monstroplolis, Naboo, 73)
+    gs.add_edge_reverced(Metroville, Monstroplolis, 105)
+    gs.add_edge_reverced(Metroville, Narnia, 37)
+    gs.add_edge_reverced(Metroville, Naboo, 26)
+    gs.add_edge_reverced(Narnia, Naboo, 26)
 
-    # g.DFS(four, lambda ver: print(ver.value))
+
+    gl = Graph()
+
+    A = gl.add_vertix('A')
+    B = gl.add_vertix('B')
+    C = gl.add_vertix('C')
+    G = gl.add_vertix('G')
+    D = gl.add_vertix('D')
+    E = gl.add_vertix('E')
+    H = gl.add_vertix('H')
+    F = gl.add_vertix('F')
+
+    gl.add_edge(A, B)
+    gl.add_edge(A, D)
+    gl.add_edge(B, C)
+    gl.add_edge(C, G)
+    gl.add_edge(D, E)
+    gl.add_edge(D, H)
+    gl.add_edge(D, F)
+    gl.add_edge(H, F)
+
+    gl.add_edge_reverced(A, B)
+    gl.add_edge_reverced(A, D)
+    gl.add_edge_reverced(B, C)
+    gl.add_edge_reverced(C, G)
+    gl.add_edge_reverced(D, E)
+    gl.add_edge_reverced(D, H)
+    gl.add_edge_reverced(D, F)
+    gl.add_edge_reverced(H, F)
+
+
+    flight_one = ['Pandora', 'Metroville']
+    
+    flight_two, flight_three = ['Arendelle', 'Monstroplolis', 'Naboo'], ['Naboo', 'Pandora']
+    
+    # # print(gs.validate_vertix(flight_one))
+    # wets = gs.get_neighbors(Monstroplolis)
+    # print(wets)
+    # price = 0
+    # for w in wets:
+    #     x = w.vertix.value
+    #     if x in flight_two:
+    #         price += w.weight
+    #         print(x)
+    # print(str(gs))
+    
+    
+    
+    # print(next(iter(gl.get_vertices())))
+    print(gl.DFS())
+
+    # assert gl.DFS() == ['A', 'B', 'C', 'G', 'D', 'E', 'H', 'F']
+    # print("all pass")
+    # for f in flight_two: 
+    #     if f in str(gs):
+
+    #         print(f, str(gs))
+        
+    
+    
+    
+    # print(gs.findCheapestPrice(flight_two))
+    
+    
+    
+    
+    # print(price)
+
+    # print(gs.findCheapestPrice(gs, flight_one))
+
+    # if 'Naboo' in gs.get_vertices():
+    #     print('True')
+    # else:
+    #     print(gs.get_vertices())
+    # gs.get_valid('Naboo')
+    # print(next(gs))
+    # # print(g.size())
+    # # print(g.get_vertices())
+    # gs.BFS(Naboo, lambda ver: print(ver.value))
+
+    # print (gs.get_tuple_neighbors(Monstroplolis))
+    
+
+
+
+    # print(g.DFS())
 
     # print(next(g))
 

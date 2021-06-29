@@ -57,6 +57,38 @@ def graph_fexture():
     g.add_edge(five, four)
     return g
 
+@pytest.fixture
+def DFS_fixture():
+    gl = Graph()
+
+    A = gl.add_vertix('A')
+    B = gl.add_vertix('B')
+    C = gl.add_vertix('C')
+    G = gl.add_vertix('G')
+    D = gl.add_vertix('D')
+    E = gl.add_vertix('E')
+    H = gl.add_vertix('H')
+    F = gl.add_vertix('F')
+
+    gl.add_edge(A, B)
+    gl.add_edge(A, D)
+    gl.add_edge(B, C)
+    gl.add_edge(C, G)
+    gl.add_edge(D, E)
+    gl.add_edge(D, H)
+    gl.add_edge(D, F)
+    gl.add_edge(H, F)
+
+    gl.add_edge_reverced(A, B)
+    gl.add_edge_reverced(A, D)
+    gl.add_edge_reverced(B, C)
+    gl.add_edge_reverced(C, G)
+    gl.add_edge_reverced(D, E)
+    gl.add_edge_reverced(D, H)
+    gl.add_edge_reverced(D, F)
+    gl.add_edge_reverced(H, F)
+
+    return gl
 
 def test_add_vertix(): ## 1
     """
@@ -126,7 +158,7 @@ def test_neighbors_with_weight_between_nodes(graph_fexture): ## 5
     graph_fexture.add_edge(test, one, 5)
     graph_fexture.add_edge(test, two, 2)
 
-    expected = [('one', 5),('two', 2)]
+    expected = {('one', 5),('two', 2)}
     actual = graph_fexture.get_tuple_neighbors(test)
     assert actual == expected
 
@@ -142,7 +174,7 @@ def test_size_neighbors(graph_fexture): ## 6
     graph_fexture.add_edge(test, two)
 
     actual = graph_fexture.get_tuple_neighbors(test)
-    expected = ['two']
+    expected = {'two'}
     assert actual == expected
 
 def test_one_node_and_one_edge(): ## 7
@@ -154,7 +186,7 @@ def test_one_node_and_one_edge(): ## 7
 
     g.add_edge(test, test, 5)
     actual = g.get_tuple_neighbors(test)
-    expected = [("test", 5)]
+    expected = {("test", 5)}
     assert g.size() == 1
     assert actual == expected
 
@@ -166,6 +198,8 @@ def test_empty_graph(): ## 8
     expected = 'Graph is empty'
     actual = g.size()
     assert actual == expected
+
+####################################################   BFS   ###########################################################
 
 def test_BFS(): ## 9
     """[summary]
@@ -192,7 +226,14 @@ def test_BFS(): ## 9
     actual = lst
     assert actual == expected
 
+####################################################   DFS   ###########################################################
 
+def test_DFS(DFS_fixture): ## 10 
+    """[summary]
+
+    """
+
+    assert DFS_fixture.DFS() == ['A', 'B', 'C', 'G', 'D', 'E', 'H', 'F']
 
 
 

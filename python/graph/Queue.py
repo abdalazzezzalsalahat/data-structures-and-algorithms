@@ -9,7 +9,15 @@ class Queue():
         initializing a Queue object
         """
         self.dq = deque()
-        
+    
+    def __len__(self):
+        """[summary]
+        calculates the length of a Queue
+        Returns:
+            [int]: [length of a Queue]
+        """
+        return len(self.dq)
+
     def enqueue(self, value):
         """[summary]
         adding element to a Queue
@@ -26,10 +34,4 @@ class Queue():
         """
         return self.dq.pop()
 
-    def __len__(self):
-        """[summary]
-        calculates the length of a Queue
-        Returns:
-            [int]: [length of a Queue]
-        """
-        return len(self.dq)
+
