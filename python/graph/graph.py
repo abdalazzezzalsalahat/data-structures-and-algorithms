@@ -69,7 +69,7 @@ class Graph():
         """
         res = "Vertices: "
         for vert in self._adjacency_list:
-            res += str(vert) + " "
+            res += str(vert.value) + "\n_________"
         return res
 
     def __iter__(self):
@@ -287,46 +287,46 @@ class Graph():
 
 
 
-    # def DFS(self, start_vertix, value):
-    #     """[summary]
-    #         tree
-    #     Args:
-    #         start_vertix ([type]): [description]
-    #         action (tuple, optional): [description]. Defaults to (lambda x : None).
-    #     """
-    #     visited = set()
-    #     visited.add(start_vertix)
-    #     neighbrs = self.get_neighbors(start_vertix)
+        # def DFS(self, start_vertix, value):
+        #     """[summary]
+        #         tree
+        #     Args:
+        #         start_vertix ([type]): [description]
+        #         action (tuple, optional): [description]. Defaults to (lambda x : None).
+        #     """
+        #     visited = set()
+        #     visited.add(start_vertix)
+        #     neighbrs = self.get_neighbors(start_vertix)
 
-    #     for edge in neighbrs:
+        #     for edge in neighbrs:
 
-    #         if edge not in visited:
-    #             self.DFS(vertix)
-    #             visited.add(vertix)
-
-
+        #         if edge not in visited:
+        #             self.DFS(vertix)
+        #             visited.add(vertix)
 
 
-    # def DFS(self):
-    #     lst = set()
-    #     def dfs(vertix):
-    #         lst.add(vertix)
-    #         vis = False 
-    #         fin = False
 
-    #         for vert in  self._adjacency_list:
-    #             if fin:
-    #                 continue
+
+        # def DFS(self):
+        #     lst = set()
+        #     def dfs(vertix):
+        #         lst.add(vertix)
+        #         vis = False 
+        #         fin = False
+
+        #         for vert in  self._adjacency_list:
+        #             if fin:
+        #                 continue
+                    
+        #             if vis:
+        #                 continue
+                    
+        #             dfs(vert) 
                 
-    #             if vis:
-    #                 continue
+        #         fin = True
                 
-    #             dfs(vert) 
-            
-    #         fin = True
-            
-    #     dfs(self._adjacency_list)
-    #     return lst
+        #     dfs(self._adjacency_list)
+        #     return lst
 
     def find_all_paths(self, start_vertix):
         """[summary]
@@ -357,51 +357,43 @@ class Graph():
         return self._adjacency_list[value]
 
 
-    # def findCheapestPrice(self, flights):
+    def findCheapestPrice(self, flights):
+        verts = self.get_vertices()
+        verts_vals = self.get_tuple_vertix()
+        res = self.validate_vertix(verts_vals)
+        visited = set()
+        pr = []
+        xcv = 0
+        price = 0
+        vvvvv = 0
+        if res:
+            for v in verts:
+                if v.value in flights:
+                    vvvvv = v
+                    break
+            def smth(vertix, price):
+                price = price
+                visited.add(vertix)
+                wets = self.get_neighbors(vertix)
+                for w in wets:
+                    
+                    x = w.vertix
+                    y = w.vertix.value
+                    # print(y)
+                    
+                    if x in visited:
+                        continue
+                    
+                    if y in flights:
+                        price += w.weight
+                        pr.append(price)
+                        smth(x, price)
+                        return pr[-1]
         
-        # prices = ['inf']
-        # prices[src] = 0
-
-        # for _ in range(k+1):
-            
-        #     next_prices = [d for d in prices]
-            
-        #     for value in flights:
-                
-        #         if  value in self.get_tuple_neighbors():
-        #             next_prices[b] = prices[a] + p
-            
-        #     prices = next_prices
-        # return prices[dst] if prices[dst] != 'inf' else -1
-
-
+        return (res, smth(vvvvv, price))
 
 
 if __name__ == "__main__":
-    g = Graph()
-    one = g.add_vertix('one')
-    two = g.add_vertix('two')
-    three = g.add_vertix('three')
-    four = g.add_vertix('four')
-    five = g.add_vertix('five')
-    
-    g.add_edge(one, two)
-    g.add_edge(one, three)
-    g.add_edge(three, three)
-    g.add_edge(four, three)
-    g.add_edge(two, three)
-    g.add_edge(two, four)
-    g.add_edge(one, five)
-    g.add_edge(four, five)
-
-    g.add_edge_reverced(one, two)
-    g.add_edge_reverced(one, three)
-    g.add_edge_reverced(three, three)
-    g.add_edge_reverced(four, three)
-    g.add_edge_reverced(two, three)
-    g.add_edge_reverced(two, four)
-    g.add_edge_reverced(one, five)
-    g.add_edge_reverced(four, five)
 
     gs = Graph()
 
@@ -416,7 +408,7 @@ if __name__ == "__main__":
     gs.add_edge(Pandora, Metroville, 82)
     gs.add_edge(Arendelle, Metroville, 99)
     gs.add_edge(Arendelle, Monstroplolis, 42)
-    gs.add_edge(Monstroplolis, Naboo, 37)
+    gs.add_edge(Monstroplolis, Naboo, 73)
     gs.add_edge(Metroville, Monstroplolis, 105)
     gs.add_edge(Metroville, Narnia, 37)
     gs.add_edge(Metroville, Naboo, 26)
@@ -426,7 +418,7 @@ if __name__ == "__main__":
     gs.add_edge_reverced(Pandora, Metroville, 82)
     gs.add_edge_reverced(Arendelle, Metroville, 99)
     gs.add_edge_reverced(Arendelle, Monstroplolis, 42)
-    gs.add_edge_reverced(Monstroplolis, Naboo, 37)
+    gs.add_edge_reverced(Monstroplolis, Naboo, 73)
     gs.add_edge_reverced(Metroville, Monstroplolis, 105)
     gs.add_edge_reverced(Metroville, Narnia, 37)
     gs.add_edge_reverced(Metroville, Naboo, 26)
@@ -437,11 +429,37 @@ if __name__ == "__main__":
 
     flight_one = ['Pandora', 'Metroville']
     
-    print(gs.validate_vertix(flight_one))
-    wets = gs.get_neighbors(Pandora)
-    for w in wets:
-        print(w.weight)
-    # flight_two, flight_three = ['Arendelle', 'Monstroplolis', 'Naboo'], ['Naboo', 'Pandora']
+    flight_two, flight_three = ['Arendelle', 'Monstroplolis', 'Naboo'], ['Naboo', 'Pandora']
+    
+    # # print(gs.validate_vertix(flight_one))
+    # wets = gs.get_neighbors(Monstroplolis)
+    # print(wets)
+    # price = 0
+    # for w in wets:
+    #     x = w.vertix.value
+    #     if x in flight_two:
+    #         price += w.weight
+    #         print(x)
+    # print(str(gs))
+    
+    
+    
+    
+    
+    # for f in flight_two: 
+    #     if f in str(gs):
+
+    #         print(f, str(gs))
+        
+    
+    
+    
+    print(gs.findCheapestPrice(flight_two))
+    
+    
+    
+    
+    # print(price)
 
     # print(gs.findCheapestPrice(gs, flight_one))
 
