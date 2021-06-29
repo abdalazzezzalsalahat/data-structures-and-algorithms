@@ -57,6 +57,38 @@ def graph_fexture():
     g.add_edge(five, four)
     return g
 
+@pytest.fixture
+def DFS_fixture():
+    gl = Graph()
+
+    A = gl.add_vertix('A')
+    B = gl.add_vertix('B')
+    C = gl.add_vertix('C')
+    G = gl.add_vertix('G')
+    D = gl.add_vertix('D')
+    E = gl.add_vertix('E')
+    H = gl.add_vertix('H')
+    F = gl.add_vertix('F')
+
+    gl.add_edge(A, B)
+    gl.add_edge(A, D)
+    gl.add_edge(B, C)
+    gl.add_edge(C, G)
+    gl.add_edge(D, E)
+    gl.add_edge(D, H)
+    gl.add_edge(D, F)
+    gl.add_edge(H, F)
+
+    gl.add_edge_reverced(A, B)
+    gl.add_edge_reverced(A, D)
+    gl.add_edge_reverced(B, C)
+    gl.add_edge_reverced(C, G)
+    gl.add_edge_reverced(D, E)
+    gl.add_edge_reverced(D, H)
+    gl.add_edge_reverced(D, F)
+    gl.add_edge_reverced(H, F)
+
+    return gl
 
 def test_add_vertix(): ## 1
     """
@@ -167,6 +199,8 @@ def test_empty_graph(): ## 8
     actual = g.size()
     assert actual == expected
 
+####################################################   BFS   ###########################################################
+
 def test_BFS(): ## 9
     """[summary]
     testing the BFS
@@ -192,7 +226,14 @@ def test_BFS(): ## 9
     actual = lst
     assert actual == expected
 
+####################################################   DFS   ###########################################################
 
+def test_DFS(DFS_fixture): ## 10 
+    """[summary]
+
+    """
+
+    assert DFS_fixture.DFS() == ['A', 'B', 'C', 'G', 'D', 'E', 'H', 'F']
 
 
 

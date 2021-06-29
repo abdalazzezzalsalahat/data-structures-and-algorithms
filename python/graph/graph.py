@@ -87,6 +87,20 @@ class Graph():
         """
         return next(self.__iter__())
 
+    def size(self):
+        """[summary]
+            function to return the size of a Graph
+        Returns:
+            [int]: [description]
+        """
+        if len(self._adjacency_list):
+            return len(self._adjacency_list)
+        return 'Graph is empty'
+
+
+
+
+
     def add_vertix(self, value):
         """[summary]
             function to add a new vertex to the graph
@@ -160,15 +174,9 @@ class Graph():
 
         self._adjacency_list[end_vertix].append(Edge(start_vertix, weight))
 
-    def size(self):
-        """[summary]
-            function to return the size of a Graph
-        Returns:
-            [int]: [description]
-        """
-        if len(self._adjacency_list):
-            return len(self._adjacency_list)
-        return 'Graph is empty'
+
+
+
 
     def get_neighbors(self, vertix):
         """[summary]
@@ -209,6 +217,23 @@ class Graph():
 
         raise KeyError("No neighbors found")
 
+    def get_neighbors_second(self,vertex):
+        """[summary]
+            another way of getting a vertex neighbors
+        Args:
+            vertex ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        result = []
+        if len(self._adjacency_list.get(vertex)):
+            # print('whats wront with', self._adjacency_list.get(vertex))
+            for l in range(len(self._adjacency_list.get(vertex))):
+                result.append([self._adjacency_list.get(vertex)[l].vertix.value,
+                            self._adjacency_list.get(vertex)[l].weight])
+        return result
+
     def get_vertices(self):
         """[summary]
             get all the nodes in a Graph
@@ -242,6 +267,9 @@ class Graph():
         """
         return self._adjacency_list[vertix]
 
+
+
+
     def validate_vertix(self, lst):
         v = gs.get_tuple_vertix()
         bool = False
@@ -253,6 +281,20 @@ class Graph():
                 bool = False
         
         return bool
+
+    def get_valid(self, value):
+        """[summary]
+            get the valid vertex from Graph
+        Args:
+            value ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        return self._adjacency_list[value]
+
+
+
 
     def BFS(self, start_vertix, action = (lambda x : None)):
         """[summary]
@@ -282,80 +324,27 @@ class Graph():
                     visited.add(n_vert)
                 queue.enqueue(n_vert)
 
-    def DFS(self, vertix):
-        lst = set()
-
-
-
-        # def DFS(self, start_vertix, value):
-        #     """[summary]
-        #         tree
-        #     Args:
-        #         start_vertix ([type]): [description]
-        #         action (tuple, optional): [description]. Defaults to (lambda x : None).
-        #     """
-        #     visited = set()
-        #     visited.add(start_vertix)
-        #     neighbrs = self.get_neighbors(start_vertix)
-
-        #     for edge in neighbrs:
-
-        #         if edge not in visited:
-        #             self.DFS(vertix)
-        #             visited.add(vertix)
-
-
-
-
-        # def DFS(self):
-        #     lst = set()
-        #     def dfs(vertix):
-        #         lst.add(vertix)
-        #         vis = False 
-        #         fin = False
-
-        #         for vert in  self._adjacency_list:
-        #             if fin:
-        #                 continue
-                    
-        #             if vis:
-        #                 continue
-                    
-        #             dfs(vert) 
-                
-        #         fin = True
-                
-        #     dfs(self._adjacency_list)
-        #     return lst
-
-    def find_all_paths(self, start_vertix):
+    def DFS(self):
         """[summary]
-            a function to find all paths between all points
-        Args:
-            start_vertix ([type]): [description]
+        Graph Depth First Search function
         """
-        pass
+        visited = set()
+        lst = []
+        vertex = next(iter(self.get_vertices()))
+        
+        def DFS_helper(vertex):
+            visited.add(vertex)
 
-    def shortest_path(self, start_vertix):
-        """[summary]
-            a function to find the shortest path between a starting point and ending point 
-        Args:
-            start_vertix ([type]): [description]
-        """
-        pass
+            neighbors = self.get_neighbors(vertex)
 
-    def get_neighbors_second(self,vertex):
-        result = []
-        if len(self._adjacency_list.get(vertex)):
-            # print('whats wront with', self._adjacency_list.get(vertex))
-            for l in range(len(self._adjacency_list.get(vertex))):
-                result.append([self._adjacency_list.get(vertex)[l].vertix.value,
-                            self._adjacency_list.get(vertex)[l].weight])
-        return result
+            lst.append(vertex.value)
 
-    def get_valid(self, value):
-        return self._adjacency_list[value]
-
+            for neighbor in neighbors:
+                if neighbor.vertix not in visited:
+                    DFS_helper(neighbor.vertix)
+        
+        DFS_helper(vertex)
+        return lst
 
     def findCheapestPrice(self, flights):
         verts = self.get_vertices()
@@ -393,6 +382,28 @@ class Graph():
         return (res, smth(vvvvv, price))
 
 
+
+
+    ########### NOT READY YET ((((((((((  C O M I N G   S O O N   )))))))))) ###########
+    def find_all_paths(self, start_vertix):
+        """[summary]
+            a function to find all paths between all points
+        Args:
+            start_vertix ([type]): [description]
+        """
+        pass
+
+    def shortest_path(self, start_vertix):
+        """[summary]
+            a function to find the shortest path between a starting point and ending point 
+        Args:
+            start_vertix ([type]): [description]
+        """
+        pass
+
+
+
+
 if __name__ == "__main__":
 
     gs = Graph()
@@ -425,6 +436,34 @@ if __name__ == "__main__":
     gs.add_edge_reverced(Narnia, Naboo, 26)
 
 
+    gl = Graph()
+
+    A = gl.add_vertix('A')
+    B = gl.add_vertix('B')
+    C = gl.add_vertix('C')
+    G = gl.add_vertix('G')
+    D = gl.add_vertix('D')
+    E = gl.add_vertix('E')
+    H = gl.add_vertix('H')
+    F = gl.add_vertix('F')
+
+    gl.add_edge(A, B)
+    gl.add_edge(A, D)
+    gl.add_edge(B, C)
+    gl.add_edge(C, G)
+    gl.add_edge(D, E)
+    gl.add_edge(D, H)
+    gl.add_edge(D, F)
+    gl.add_edge(H, F)
+
+    gl.add_edge_reverced(A, B)
+    gl.add_edge_reverced(A, D)
+    gl.add_edge_reverced(B, C)
+    gl.add_edge_reverced(C, G)
+    gl.add_edge_reverced(D, E)
+    gl.add_edge_reverced(D, H)
+    gl.add_edge_reverced(D, F)
+    gl.add_edge_reverced(H, F)
 
 
     flight_one = ['Pandora', 'Metroville']
@@ -444,8 +483,11 @@ if __name__ == "__main__":
     
     
     
-    
-    
+    # print(next(iter(gl.get_vertices())))
+    print(gl.DFS())
+
+    # assert gl.DFS() == ['A', 'B', 'C', 'G', 'D', 'E', 'H', 'F']
+    # print("all pass")
     # for f in flight_two: 
     #     if f in str(gs):
 
@@ -454,7 +496,7 @@ if __name__ == "__main__":
     
     
     
-    print(gs.findCheapestPrice(flight_two))
+    # print(gs.findCheapestPrice(flight_two))
     
     
     
