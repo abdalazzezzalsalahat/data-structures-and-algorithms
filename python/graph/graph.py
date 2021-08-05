@@ -381,6 +381,13 @@ class Graph():
         
         return (res, smth(vvvvv, price))
 
+    def check_connection(self, vertex_one, vertex_two):
+        neighbors = self.get_neighbors(vertex_one)
+        for neighbor in neighbors:
+            if vertex_two.value == neighbor.vertix.value:
+                return True 
+            else:
+                return False
 
 
 
@@ -480,11 +487,14 @@ if __name__ == "__main__":
     #         price += w.weight
     #         print(x)
     # print(str(gs))
-    
+    assert gl.check_connection(A, B) == True
+    assert gl.check_connection(A, C) == False
+
+    print ("all good ")
     
     
     # print(next(iter(gl.get_vertices())))
-    print(gl.DFS())
+    # print(gl.DFS())
 
     # assert gl.DFS() == ['A', 'B', 'C', 'G', 'D', 'E', 'H', 'F']
     # print("all pass")
